@@ -1,0 +1,13 @@
+{
+  "name": "berry-bot",
+  "version": "1.0.0",
+  "description": "A custom discord bot for berry berry club",
+  "main": "bot.js",
+  "author": "sudo -i",
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "discord.js": "^11.4.2",
+    "nodemon": "^1.18.8",
+    "winston": "^3.1.0"
+  }
+}
