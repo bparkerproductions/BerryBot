@@ -15,6 +15,10 @@
     "channelcount": {
       "command": "channelcount",
       "description": "Counts total channels, including voice and text"
+    },
+    "quote": {
+      "command": "quote",
+      "description": "Gets a random quote and its author"
     }
   }
 }

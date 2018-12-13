@@ -6,6 +6,7 @@ const config = require("./data/config.json");
 
 const Text = require("./modules/text/text.js");
 const Channel = require("./modules/data/channels.js");
+const API = require("./modules/api/api.js");
 
 client.on('ready', () => {
   //let botChannel = client.channels.get(channels["bot-test"]);
@@ -42,6 +43,10 @@ function processCommand(receivedMessage) {
 
 function mapCommands(command, message, arguments) {
   switch(command) {
+
+    case "quote":
+      API.getQuote(arguments, message);
+      break;
 
     case "help":
       Text.help(arguments, message);
