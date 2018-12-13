@@ -4,6 +4,9 @@ const secretToken = require("./auth.json").token;
 const channels = require("./data/channels");
 const config = require("./data/config.json");
 
+const Text = require("./modules/text/text.js");
+const Channel = require("./modules/data/channels.js");
+
 client.on('ready', () => {
   //let botChannel = client.channels.get(channels["bot-test"]);
 
@@ -39,20 +42,21 @@ function processCommand(receivedMessage) {
 
 function mapCommands(command, message, arguments) {
   switch(command) {
-    case "help":
-      helpCommand(arguments, message);
-      break;
-
-    case "multiply":
-      multiplyCommand(arguments, message);
-      break;
 
     case "yell":
-      yell(arguments, message);
+      Text.yell(arguments, message);
       break;
 
     case "whisper":
-      whisper(arguments, message);
+      Text.whisper(arguments, message);
+      break;
+
+    case "channelcount":
+      Channel.amountChannels(arguments, message, client);
+      break;
+
+    case "chain":
+      Text.chain(arguments, message);
       break;
 
     default:
@@ -61,42 +65,6 @@ function mapCommands(command, message, arguments) {
   }
 }
 
-function helpCommand(arguments, receivedMessage) {
-    if (arguments.length > 0) {
-        receivedMessage.channel.send("It looks like you might need help with " + arguments)
-    } else {
-        receivedMessage.channel.send("I'm not sure what you need help with. Try `!help [topic]`")
-    }
-}
-
-function multiplyCommand(arguments, receivedMessage) {
-    if (arguments.length < 2) {
-        receivedMessage.channel.send("Not enough values to multiply. Try `!multiply 2 4 10` or `!multiply 5.2 7`")
-        return
-    }
-    let product = 1 
-    arguments.forEach((value) => {
-        product = product * parseFloat(value)
-    })
-    receivedMessage.channel.send("The product of " + arguments + " multiplied together is: " + product.toString())
-}
-
-function yell(arguments, receivedMessage) {
-  let message = arguments.join(" ");
-
-  if(arguments == "") {
-    receivedMessage.channel.send(`**HWAT?!**`);
-  }
-  else {
-    receivedMessage.channel.send(`**${message.toUpperCase()}!!**`);
-  }
-}
-
-function whisper(arguments, receivedMessage) {
-  let message = arguments.join(" ");
-
-  receivedMessage.channel.send(`*${message.toLowerCase()}* ( ͡° ͜ʖ ͡°)`);
-}
 
 // Get your bot's secret token from:
 // https://discordapp.com/developers/applications/

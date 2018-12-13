@@ -1,3 +1,7 @@
 {
-  "prefix": "b!"
+  "prefix": "b!",
+  "channelName": "Berry Berry Club",
+  "chain": {
+    "limit": 5
+  }
 }
