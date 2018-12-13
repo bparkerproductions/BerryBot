@@ -2,7 +2,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require("./../../data/config.json");
-
+const helpText = require("./../../data/text.json");
+const Helpers = require("./../helpers/helpers.js");
 
 module.exports = {
   yell(arguments, receivedMessage) {
@@ -29,11 +30,16 @@ module.exports = {
   },
 
   chain(arguments, receivedMessage) {
-    let amount = arguments[0]; //first arg
-    let message = arguments[1]; // second arg
+    let amount = arguments[0]; //amount to repeat
+    let message = Helpers.getSentence(arguments); // convert rest of args into a sentence
     let chainLimit = config.chain.limit;
 
-    if(amount > chainLimit) {
+    if(receivedMessage.channel.name !== "❥bot-test") {
+      receivedMessage.channel.send(`The chain command is not allowed in this channel`);
+      return;
+    }
+
+    if(amount > chainLimit ) {
       receivedMessage.channel.send(`chaining is limited to ${chainLimit} uses for this channel`);
       return;
     }
@@ -43,5 +49,27 @@ module.exports = {
         receivedMessage.channel.send(message);
       }, 500);
     }
+  },
+
+  help(arguments, receivedMessage) {
+    let command = arguments[0]; //the command they need help with
+    let notFound = `Sorry, the command \`${command}\` was not found`;
+    let message; //default
+
+    //no command found
+    if(helpText.help[command] == undefined) {
+      message = notFound;
+    }
+
+    //find appropriate command from text config file
+    else {
+      let commandText = helpText.help[command].command;
+      let description = helpText.help[command].description;
+
+      message =  `**${description}:** \`\`\`${config.prefix}${commandText}\`\`\``;
+    }
+
+    //send message to channel
+    receivedMessage.channel.send(message);
   }
 }

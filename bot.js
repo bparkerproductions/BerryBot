@@ -43,6 +43,10 @@ function processCommand(receivedMessage) {
 function mapCommands(command, message, arguments) {
   switch(command) {
 
+    case "help":
+      Text.help(arguments, message);
+      break;
+
     case "yell":
       Text.yell(arguments, message);
       break;
@@ -60,7 +64,7 @@ function mapCommands(command, message, arguments) {
       break;
 
     default:
-      message.channel.send("I don't understand the command. Try `!help` or `!multiply`");
+      message.channel.send(`I don't understand the command. Try ${config.prefix}help <command>`);
       break;
   }
 }

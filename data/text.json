@@ -1,0 +1,20 @@
+{
+  "help": {
+    "chain": {
+      "command": "chain <amount> <message>",
+      "description": "Chain x amount of messages together"
+    },
+    "whisper": {
+      "command": "whisper <message>",
+      "description": "Whisper a sincere message"
+    },
+    "yell": {
+      "command": "yell <message>",
+      "description": "Yell at a user or make the bot yell"
+    },
+    "channelcount": {
+      "command": "channelcount",
+      "description": "Counts total channels, including voice and text"
+    }
+  }
+}
