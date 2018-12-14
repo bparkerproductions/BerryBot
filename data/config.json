@@ -3,5 +3,8 @@
   "channelName": "Berry Berry Club",
   "chain": {
     "limit": 5
+  },
+  "automod": {
+    "charlimit": 10
   }
 }

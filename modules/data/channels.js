@@ -1,7 +1,7 @@
 let {channelName} = require("./../../data/config.json");
 
 module.exports = {
-  amountChannels(arguments, receivedMessage, client) {    
+  amountChannels(arguments, received, client) {    
     let totalChannels = 0, voiceChannels = 0, textChannels = 0;
 
     // List all channels
@@ -13,6 +13,10 @@ module.exports = {
     );
 
     let text = `${channelName} has **${totalChannels}** total channels.\n**${voiceChannels}** are voice channels and **${textChannels}** are text.`;
-    receivedMessage.channel.send(text);
+    received.channel.send(text);
+  },
+
+  amountServers(arguments, received, client) {
+    console.log(client.members);
   }
 }

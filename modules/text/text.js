@@ -5,7 +5,32 @@ const config = require("./../../data/config.json");
 const helpText = require("./../../data/text.json");
 const Helpers = require("./../helpers/helpers.js");
 
+//functions
+const Help = require("./help.js");
+
 module.exports = {
+  init(command, message, arguments) {
+
+    switch(command) {
+      case "yell":
+        this.yell(arguments, message);
+        console.log('called in here');
+        break;
+
+      case "help":
+        this.help(arguments, message);
+        break;
+
+      case "whisper":
+        this.whisper(arguments, message);
+        break;
+
+      case "chain":
+        this.chain(arguments, message);
+        break;
+    }
+  },
+
   yell(arguments, receivedMessage) {
     let message = arguments.join(" ");
 
@@ -53,8 +78,8 @@ module.exports = {
 
   help(arguments, receivedMessage) {
     let command = arguments[0]; //the command they need help with
-    let notFound = `Sorry, the command \`${command}\` was not found`;
-    let message; //default
+    let notFound = `Sorry, the command \`${command}\` was not found`; //default
+    let message;
 
     //no command found
     if(helpText.help[command] == undefined) {

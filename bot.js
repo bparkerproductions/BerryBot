@@ -7,17 +7,20 @@ const config = require("./data/config.json");
 const Text = require("./modules/text/text.js");
 const Channel = require("./modules/data/channels.js");
 const API = require("./modules/api/api.js");
+const Automod = require("./modules/automod/automod.js");
+const BotConfig = require("./modules/config/config.js");
+const User = require("./modules/user/user.js");
 
 client.on('ready', () => {
   //let botChannel = client.channels.get(channels["bot-test"]);
-
-  //botChannel.send("hello berries");
 });
 
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
       return
     }
+
+    Automod.init(receivedMessage);
     
     if (receivedMessage.content.startsWith(config.prefix)) {
       processCommand(receivedMessage)
@@ -42,37 +45,27 @@ function processCommand(receivedMessage) {
 }
 
 function mapCommands(command, message, arguments) {
-  switch(command) {
+  Text.init(command, message, arguments);
 
+  switch(command) {
     case "quote":
       API.getQuote(arguments, message);
       break;
 
-    case "help":
-      Text.help(arguments, message);
+    case "messagecount":
+      User.userMessageCount(arguments, message, client);
       break;
 
-    case "yell":
-      Text.yell(arguments, message);
-      break;
-
-    case "whisper":
-      Text.whisper(arguments, message);
+    case "config":
+      BotConfig.config(arguments, message);
       break;
 
     case "channelcount":
       Channel.amountChannels(arguments, message, client);
       break;
-
-    case "chain":
-      Text.chain(arguments, message);
-      break;
-
-    default:
-      message.channel.send(`I don't understand the command. Try ${config.prefix}help <command>`);
-      break;
   }
 }
+
 
 
 // Get your bot's secret token from:
