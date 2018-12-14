@@ -1,6 +1,14 @@
 let {channelName} = require("./../../data/config.json");
 
 module.exports = {
+  init(command, message, arguments, client) {
+    switch(command) {
+      case "channelcount":
+        this.amountChannels(arguments, message, client);
+        break;
+    }
+  },
+
   amountChannels(arguments, received, client) {    
     let totalChannels = 0, voiceChannels = 0, textChannels = 0;
 

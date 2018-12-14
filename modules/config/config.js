@@ -1,6 +1,14 @@
 let config = require("./../../data/config.json");
 
 module.exports = {
+  init(command, message, arguments) {
+    switch(command) {
+      case "config":
+        this.config(arguments, message);
+        break;
+    }
+  },
+
   config(arguments, recieved) {
     let configOption = arguments[0]; 
     let setting = arguments[1];

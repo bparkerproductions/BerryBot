@@ -46,24 +46,10 @@ function processCommand(receivedMessage) {
 
 function mapCommands(command, message, arguments) {
   Text.init(command, message, arguments);
-
-  switch(command) {
-    case "quote":
-      API.getQuote(arguments, message);
-      break;
-
-    case "messagecount":
-      User.userMessageCount(arguments, message, client);
-      break;
-
-    case "config":
-      BotConfig.config(arguments, message);
-      break;
-
-    case "channelcount":
-      Channel.amountChannels(arguments, message, client);
-      break;
-  }
+  API.init(command, message, arguments);
+  Channel.init(command, message, arguments, client);
+  User.init(command, message, arguments, client);
+  BotConfig.init(command, message, arguments);
 }
 
 
