@@ -2,7 +2,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require("./../../data/config.json");
-const helpText = require("./../../data/text.json");
 const Helpers = require("./../helpers/helpers.js");
 
 //functions
@@ -18,7 +17,7 @@ module.exports = {
         break;
 
       case "help":
-        this.help(arguments, message);
+        Help.help(arguments, message);
         break;
 
       case "whisper":
@@ -75,26 +74,4 @@ module.exports = {
       }, 500);
     }
   },
-
-  help(arguments, receivedMessage) {
-    let command = arguments[0]; //the command they need help with
-    let notFound = `Sorry, the command \`${command}\` was not found`; //default
-    let message;
-
-    //no command found
-    if(helpText.help[command] == undefined) {
-      message = notFound;
-    }
-
-    //find appropriate command from text config file
-    else {
-      let commandText = helpText.help[command].command;
-      let description = helpText.help[command].description;
-
-      message =  `**${description}:** \`\`\`${config.prefix}${commandText}\`\`\``;
-    }
-
-    //send message to channel
-    receivedMessage.channel.send(message);
-  }
 }

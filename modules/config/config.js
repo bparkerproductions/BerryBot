@@ -1,4 +1,7 @@
-let config = require("./../../data/config.json");
+const config = require("./../../data/config.json");
+const configFileName = "data/config.json";
+const fs = require("fs");
+const Helpers = require("./../helpers/helpers.js");
 
 module.exports = {
   init(command, message, arguments) {
@@ -11,13 +14,20 @@ module.exports = {
 
   config(arguments, recieved) {
     let configOption = arguments[0]; 
-    let setting = arguments[1];
-    let val = config.automod;
+    let setting = Helpers.validateDigits(arguments[1]);
 
-    if(val[configOption] && setting) {
-      val[configOption] = setting;
-
+    //check if the options are valid
+    if(config.automod[configOption] && setting) {
       recieved.channel.send(`${configOption} is now set to ${setting}`);
+      
+      //set it in the file
+      config.automod[configOption] = setting;
+
+      //write it to the file
+      fs.writeFile(configFileName, JSON.stringify(config, null, 2), (err) => {
+        if(err) return console.log(err);
+      });
+
       return;
     }
 

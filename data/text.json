@@ -1,5 +1,9 @@
 {
   "help": {
+    "base": {
+      "command": "help <command>",
+      "description": "To list available commands, type in b!commandlist"
+    },
     "chain": {
       "command": "chain <amount> <message>",
       "description": "Chain x amount of messages together"
