@@ -4,20 +4,12 @@ const client = new Discord.Client();
 const config = require("./../../data/config.json");
 const Helpers = require("./../helpers/helpers.js");
 
-//functions
-const Help = require("./help.js");
-
 module.exports = {
   init(command, message, arguments) {
-
     switch(command) {
       case "yell":
         this.yell(arguments, message);
         console.log('called in here');
-        break;
-
-      case "help":
-        Help.help(arguments, message);
         break;
 
       case "whisper":

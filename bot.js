@@ -10,6 +10,7 @@ const API = require("./modules/api/api.js");
 const Automod = require("./modules/automod/automod.js");
 const BotConfig = require("./modules/config/config.js");
 const User = require("./modules/user/user.js");
+const Help = require("./modules/help/help.js");
 
 client.on('ready', () => {
   //let botChannel = client.channels.get(channels["bot-test"]);
@@ -50,6 +51,7 @@ function mapCommands(command, message, arguments) {
   Channel.init(command, message, arguments, client);
   User.init(command, message, arguments, client);
   BotConfig.init(command, message, arguments);
+  Help.init(command, message, arguments);
 }
 
 

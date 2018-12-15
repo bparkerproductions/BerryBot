@@ -2,6 +2,14 @@ const helpText = require("./../../data/text.json");
 const config = require("./../../data/config.json");
 
 module.exports = {
+  init(command, message, arguments) {
+    switch(command) {
+      case "help":
+        this.help(arguments, message);
+        break;
+    }
+  },
+
   help(arguments, received) {
     let command = arguments[0]; //the command they need help with
     let notFound = `Sorry, the command \`${command}\` was not found`; //default
