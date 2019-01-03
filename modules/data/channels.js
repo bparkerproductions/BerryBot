@@ -6,6 +6,10 @@ module.exports = {
       case "channelcount":
         this.amountChannels(arguments, message, client);
         break;
+
+      case "servermsgcount":
+        this.amountMessages(arguments, message, client);
+        break;
     }
   },
 
@@ -24,7 +28,10 @@ module.exports = {
     received.channel.send(text);
   },
 
-  amountServers(arguments, received, client) {
-    console.log(client.members);
+  amountMessages(arguments, received, client) {
+    console.log(received.channel.messages);
+    // client.fetchMessages()
+    // .then(messages => console.log(messages.size))
+    // .catch(console.error);
   }
 }

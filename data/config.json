@@ -5,6 +5,6 @@
     "limit": 5
   },
   "automod": {
-    "charlimit": "15"
+    "charlimit": "10"
   }
 }

@@ -9,7 +9,6 @@ module.exports = {
     switch(command) {
       case "yell":
         this.yell(arguments, message);
-        console.log('called in here');
         break;
 
       case "whisper":
