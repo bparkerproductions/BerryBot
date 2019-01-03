@@ -4,6 +4,7 @@ const secretToken = require("./auth.json").token;
 const channels = require("./data/channels");
 const config = require("./data/config.json");
 
+//Every bot module
 const Text = require("./modules/text/text.js");
 const Channel = require("./modules/data/channels.js");
 const API = require("./modules/api/api.js");
@@ -11,6 +12,7 @@ const Automod = require("./modules/automod/automod.js");
 const BotConfig = require("./modules/config/config.js");
 const User = require("./modules/user/user.js");
 const Help = require("./modules/help/help.js");
+const Moderation = require("./modules/moderation/moderation.js");
 
 client.on('ready', () => {
   //let botChannel = client.channels.get(channels["bot-test"]);
@@ -52,6 +54,7 @@ function mapCommands(command, message, arguments) {
   User.init(command, message, arguments, client);
   BotConfig.init(command, message, arguments);
   Help.init(command, message, arguments);
+  Moderation.init(command, message, arguments);
 }
 
 

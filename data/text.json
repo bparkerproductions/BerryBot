@@ -19,6 +19,10 @@
     "quote": {
       "command": "quote",
       "description": "Gets a random quote and its author"
+    },
+    "contain": {
+      "command": "contain <user>",
+      "description": "Contains a user to a certain channel, for a specified time"
     }
   }
 }
