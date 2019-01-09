@@ -6,9 +6,11 @@
   "author": "sudo -i",
   "dependencies": {
     "axios": "^0.18.0",
+    "cleverbot-node": "^0.3.11",
     "discord.io": "^2.5.3",
     "discord.js": "^11.4.2",
     "nodemon": "^1.18.8",
+    "snoowrap": "^1.15.2",
     "winston": "^3.1.0"
   }
 }

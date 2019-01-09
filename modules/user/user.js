@@ -1,7 +1,7 @@
 module.exports = {
   init(command, message, arguments, client) {
     switch(command) {
-      case "usermsgcount":
+      case "messagecount":
         this.userMessageCount(arguments, message, client);
         break;
     }
@@ -9,6 +9,8 @@ module.exports = {
 
   userMessageCount(arguments, recieved, client) {
     let id = recieved.author.id;
-    //console.log(client.users.get(id))
+    let user = client.users.get(id);
+    console.log(user);
+    recieved.channel.send(user.hasRole());
   }
 }

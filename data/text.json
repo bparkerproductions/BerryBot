@@ -23,6 +23,10 @@
     "contain": {
       "command": "contain <user>",
       "description": "Contains a user to a certain channel, for a specified time"
+    },
+    "lock": {
+      "command": "lock <user> <channel>",
+      "description": "Lock a user out of a certain channel for a specified amount of time. Use no arg to toggle it on/off instead of using an interval."
     }
   }
 }
