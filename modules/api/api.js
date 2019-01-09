@@ -1,24 +1,15 @@
 const axios = require("axios");
-const snoowrap = require("snoowrap");
-const auth = require("./../../auth.json");
-const reddit = new snoowrap({
-  userAgent: "Berry bot with Node.js snoo wrapper by /u/fetal_sacrifice",
-  clientSecret: auth.redditSecret,
-  clientId: auth.redditId,
-  username: auth.redditUser,
-  password: auth.redditPass
-});
-const Helpers = require('../helpers/helpers.js');
+const Reddit = require("./reddit.js");
 
 module.exports = {
   init(command, message, arguments) {
+    //specific API modules
+    Reddit.init(command, message, arguments);
+
+    //global switch commands
     switch(command) {
       case "quote":
         this.getQuote(arguments, message);
-        break;
-
-      case "question":
-        this.askReddit(arguments, message);
         break;
     }
   },
@@ -34,15 +25,5 @@ module.exports = {
       //send it
       recieved.channel.send(`"${text}" **- ${author}**`);
     })
-  },
-
-  askReddit(arguments, recieved) {
-    reddit.getSubreddit('AskReddit')
-    .getHot({'limit': 100})
-    .then( posts => {
-      let questionIndex = Helpers.generateRandom(100);
-      let question = posts.toJSON()[questionIndex]; //choose a question by index
-      recieved.channel.send(question.title);
-    });
   }
 }
