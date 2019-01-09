@@ -5,6 +5,12 @@ module.exports = {
   },
 
   validateDigits(message) {
+    //validate that a string is digits
     return message.match(/^\d+$/) ? message : false;
+  },
+
+  generateRandom(num) {
+    //return a random number from 0 to num
+    return Math.floor(Math.random()*num); randomNumber;
   }
 }

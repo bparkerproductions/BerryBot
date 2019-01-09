@@ -37,6 +37,12 @@ module.exports = {
   },
 
   askReddit(arguments, recieved) {
-    //reddit.getSubreddit('AskReddit').getWikiPage('bestof').content_md.then(console.log);
+    reddit.getSubreddit('AskReddit')
+    .getHot({'limit': 100})
+    .then( posts => {
+      let questionIndex = Helpers.generateRandom(100);
+      let question = posts.toJSON()[questionIndex]; //choose a question by index
+      recieved.channel.send(question.title);
+    });
   }
 }
