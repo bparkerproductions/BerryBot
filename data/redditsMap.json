@@ -14,17 +14,25 @@
     },
     {
       "arg": "insightful",
-      "subreddit": "InsightfulQuestions" 
+      "subreddit": "InsightfulQuestions"
     },
     {
       "arg": "men",
-      "subreddit": "AskMen" 
+      "subreddit": "AskMen"
     },
     {
       "arg": "women",
-      "subreddit": "AskWomen" 
+      "subreddit": "AskWomen"
+    },
+    {
+      "arg": "ouija",
+      "subreddit": "AskOuija"
     }
   ],
+  "recentQuestion": {
+    "question": "Why do medical residents make so little?",
+    "id": ""
+  },
   "ideaReddits": [
     {
       "arg": "shitty",
