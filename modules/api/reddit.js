@@ -4,6 +4,10 @@ const snoowrap = require("snoowrap");
 const reddits = require("./../../data/redditsMap.json");
 const fs = require("fs");
 
+//modules
+const rhelpers = require("./reddit/helpers.js");
+const Generator = require("./reddit/generator.js");
+
 //init reddit instance
 const reddit = new snoowrap({
   userAgent: "Berry bot with Node.js snoo wrapper by /u/fetal_sacrifice",
@@ -15,36 +19,27 @@ const reddit = new snoowrap({
 
 module.exports = {
   init(command, message, arguments) {
+    //init other modules
+    Generator.init(arguments, message, arguments, reddit);
+
     let questions = reddits.questionReddits;
     let ideas = reddits.ideaReddits;
 
     if(command == "question" || command == "q") {
-      this.mapTypeOfReddit(arguments, message, questions);  
+      rhelpers.mapTypeOfReddit(arguments, message, questions);  
     }
     else if(command == "questionHelp" || command == "qh") {
-      this.questionHelp(arguments, message, questions, "question");
+      rhelpers.redditHelp(arguments, message, questions, "question");
     }
     else if(command == "idea" || command == "i") {
-      this.mapTypeOfReddit(arguments, message, ideas);
+      rhelpers.mapTypeOfReddit(arguments, message, ideas);
     }
     else if(command == "ideaHelp" || command == "ih") {
-      this.questionHelp(arguments, message, ideas, "idea");
+      rhelpers.redditHelp(arguments, message, ideas, "idea");
     }
     else if(command == "questionRepeat" || command == "qr") {
       this.questionRepeat(arguments, message);
     }
-  },
-    
-
-  mapTypeOfReddit(arguments, recieved, typeObj) {
-    let subReddit = arguments[0];
-
-    typeObj.forEach((item) => {
-      if(item.arg == subReddit) {
-        //if the arg matches a config option, grab question
-        this.askQuestion(arguments, recieved, item.subreddit);
-      }
-    });
   },
 
   questionFilter(question) {
@@ -56,35 +51,16 @@ module.exports = {
       reddits.recentQuestion.question = question;
 
       //write it to the file
-      fs.writeFile('data/redditsMap.json', JSON.stringify(reddits, null, 2), (err) => {
-        if(err) return console.log(err);
-      });
-  },
-
-  askQuestion(arguments, recieved, subreddit) {
-    reddit.getSubreddit(subreddit)
-    .getHot({'limit': 100})
-    .then( (posts, resolve) => {
-      let questionIndex = Helpers.generateRandom(100);
-      let question = posts.toJSON()[questionIndex]; //choose a question by index
-
-      recieved.channel.send(question.title).then(question => {
-        this.storeQuestion(question.content); //write it to file
-      })
-    });
+      fs.writeFile(
+        'data/redditsMap.json', 
+        JSON.stringify(reddits, null, 2), 
+        (err) => {
+          if(err) return console.log(err);
+        }
+      );
   },
 
   questionRepeat(arguments, recieved) {
     recieved.channel.send(reddits.recentQuestion.question);
-  },
-
-  questionHelp(arguments, recieved, subreddit, title) {
-    let textPrompt = `\`b!${title} <type> \`\n **Types:   **`;
-
-    subreddit.forEach((item) => {
-      textPrompt+=`${item.arg}, `;
-    });
-
-    recieved.channel.send(textPrompt);
   }
 }
