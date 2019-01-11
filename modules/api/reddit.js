@@ -1,7 +1,7 @@
 const auth = require("./../../auth.json");
 const Helpers = require('../helpers/helpers.js');
 const snoowrap = require("snoowrap");
-const questionReddits = require("./../../data/questions.json").questionReddits;
+const reddits = require("./../../data/redditsMap.json");
 
 //init reddit instance
 const reddit = new snoowrap({
@@ -14,17 +14,28 @@ const reddit = new snoowrap({
 
 module.exports = {
   init(command, message, arguments) {
-    if(command == "question" || command == "q")
-      this.mapQuestion(arguments, message);  
-    },
+    let questions = reddits.questionReddits;
+    let ideas = reddits.ideaReddits;
+
+    if(command == "question" || command == "q") {
+      this.mapTypeOfReddit(arguments, message, questions);  
+    }
+    else if(command == "questionHelp" || command == "qh") {
+      this.questionHelp(arguments, message, questions, "question");
+    }
+    else if(command == "idea" || command == "i") {
+      this.mapTypeOfReddit(arguments, message, ideas);
+    }
+    else if(command == "ideaHelp" || "ih") {
+      this.questionHelp(arguments, message, ideas, "idea");
+    }
+  },
     
 
-  mapQuestion(arguments, recieved) {
+  mapTypeOfReddit(arguments, recieved, typeObj) {
     let subReddit = arguments[0];
 
-    let questionArgs = questionReddits;
-
-    questionArgs.forEach((item) => {
+    typeObj.forEach((item) => {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab question
         this.askQuestion(arguments, recieved, item.subreddit);
@@ -42,10 +53,17 @@ module.exports = {
     .then( posts => {
       let questionIndex = Helpers.generateRandom(100);
       let question = posts.toJSON()[questionIndex]; //choose a question by index
-
-      if(this.questionFilter(question)) {
-        recieved.channel.send(question.title);
-      }
+      recieved.channel.send(question.title);
     });
+  },
+
+  questionHelp(arguments, recieved, subreddit, title) {
+    let textPrompt = `\`b!${title} <type> \`\n **Types:   **`;
+
+    subreddit.forEach((item) => {
+      textPrompt+=`${item.arg}, `;
+    });
+
+    recieved.channel.send(textPrompt);
   }
 }

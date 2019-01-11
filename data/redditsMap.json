@@ -5,10 +5,6 @@
       "subreddit": "AskReddit"
     },
     {
-      "arg": "",
-      "subreddit": "AskReddit"
-    },
-    {
       "arg": "nostupid",
       "subreddit": "NoStupidQuestions"
     },
@@ -27,6 +23,20 @@
     {
       "arg": "women",
       "subreddit": "AskWomen" 
+    }
+  ],
+  "ideaReddits": [
+    {
+      "arg": "shitty",
+      "subreddit": "ShittyIdeas"
+    },
+    {
+      "arg": "lightbulb",
+      "subreddit": "LightBulb"
+    },
+    {
+      "arg": "crazy",
+      "subreddit": "CrazyIdeas"
     }
   ]
 }
