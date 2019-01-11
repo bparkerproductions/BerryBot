@@ -30,6 +30,9 @@ module.exports = {
     else if(command == "ideaHelp" || command == "ih") {
       this.questionHelp(arguments, message, ideas, "idea");
     }
+    else if(command == "questionRepeat" || command == "qr") {
+      this.questionRepeat(arguments, message);
+    }
   },
     
 
@@ -69,6 +72,10 @@ module.exports = {
         this.storeQuestion(question.content); //write it to file
       })
     });
+  },
+
+  questionRepeat(arguments, recieved) {
+    recieved.channel.send(reddits.recentQuestion.question);
   },
 
   questionHelp(arguments, recieved, subreddit, title) {
