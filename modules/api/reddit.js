@@ -15,18 +15,39 @@ module.exports = {
   init(command, message, arguments) {
     switch(command) {
       case "question":
-        this.askReddit(arguments, message);
+        this.mapQuestion(arguments, message);
         break;
     }
   },
 
-  askReddit(arguments, recieved) {
-    reddit.getSubreddit('AskReddit')
+  mapQuestion(arguments, recieved) {
+    let subReddit = arguments[0];
+
+    switch(subReddit) {
+      case "ask":
+        this.askQuestion(arguments, recieved, 'AskReddit');
+        break;
+
+      default:
+        this.askQuestion(arguments, recieved, 'AskReddit');
+        break;
+    }
+  },
+
+  questionFilter(question) {
+    return !question.title.toLowerCase().includes("reddit");
+  },
+
+  askQuestion(arguments, recieved, subreddit) {
+    reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
       let questionIndex = Helpers.generateRandom(100);
       let question = posts.toJSON()[questionIndex]; //choose a question by index
-      recieved.channel.send(question.title);
+
+      if(this.questionFilter(question)) {
+        recieved.channel.send(question.title);
+      }
     });
   }
 }
