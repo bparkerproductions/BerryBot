@@ -1,0 +1,32 @@
+{
+  "questionReddits": [
+    {
+      "arg": "ask",
+      "subreddit": "AskReddit"
+    },
+    {
+      "arg": "",
+      "subreddit": "AskReddit"
+    },
+    {
+      "arg": "nostupid",
+      "subreddit": "NoStupidQuestions"
+    },
+    {
+      "arg": "stupid",
+      "subreddit": "StupidQuestions"
+    },
+    {
+      "arg": "insightful",
+      "subreddit": "InsightfulQuestions" 
+    },
+    {
+      "arg": "men",
+      "subreddit": "AskMen" 
+    },
+    {
+      "arg": "women",
+      "subreddit": "AskWomen" 
+    }
+  ]
+}

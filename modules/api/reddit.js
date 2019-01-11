@@ -1,6 +1,7 @@
 const auth = require("./../../auth.json");
 const Helpers = require('../helpers/helpers.js');
 const snoowrap = require("snoowrap");
+const questionReddits = require("./../../data/questions.json").questionReddits;
 
 //init reddit instance
 const reddit = new snoowrap({
@@ -13,25 +14,22 @@ const reddit = new snoowrap({
 
 module.exports = {
   init(command, message, arguments) {
-    switch(command) {
-      case "question":
-        this.mapQuestion(arguments, message);
-        break;
-    }
-  },
+    if(command == "question" || command == "q")
+      this.mapQuestion(arguments, message);  
+    },
+    
 
   mapQuestion(arguments, recieved) {
     let subReddit = arguments[0];
 
-    switch(subReddit) {
-      case "ask":
-        this.askQuestion(arguments, recieved, 'AskReddit');
-        break;
+    let questionArgs = questionReddits;
 
-      default:
-        this.askQuestion(arguments, recieved, 'AskReddit');
-        break;
-    }
+    questionArgs.forEach((item) => {
+      if(item.arg == subReddit) {
+        //if the arg matches a config option, grab question
+        this.askQuestion(arguments, recieved, item.subreddit);
+      }
+    });
   },
 
   questionFilter(question) {
