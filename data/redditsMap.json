@@ -1,5 +1,5 @@
 {
-  "questionReddits": [
+  "question": [
     {
       "arg": "ask",
       "subreddit": "AskReddit"
@@ -33,7 +33,7 @@
     "question": "Why do people share?",
     "id": ""
   },
-  "ideaReddits": [
+  "idea": [
     {
       "arg": "shitty",
       "subreddit": "ShittyIdeas"
@@ -45,6 +45,12 @@
     {
       "arg": "crazy",
       "subreddit": "CrazyIdeas"
+    }
+  ],
+  "pasta": [
+    {
+      "arg": "random",
+      "subreddit": "CopyPasta"
     }
   ]
 }

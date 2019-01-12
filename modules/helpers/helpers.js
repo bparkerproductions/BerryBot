@@ -12,5 +12,9 @@ module.exports = {
   generateRandom(num) {
     //return a random number from 0 to num
     return Math.floor(Math.random()*num); randomNumber;
+  },
+
+  truncate(str, wordAmount) {
+    return str.split(" ").splice(0, wordAmount).join(" ");
   }
 }

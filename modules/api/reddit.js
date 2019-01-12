@@ -1,8 +1,8 @@
 const auth = require("./../../auth.json");
 const Helpers = require('../helpers/helpers.js');
 const snoowrap = require("snoowrap");
-const reddits = require("./../../data/redditsMap.json");
 const fs = require("fs");
+const reddits = require("./../../data/redditsMap.json");
 
 //modules
 const rhelpers = require("./reddit/helpers.js");
@@ -20,22 +20,19 @@ const reddit = new snoowrap({
 module.exports = {
   init(command, message, arguments) {
     //init other modules
-    Generator.init(arguments, message, arguments, reddit);
+    Generator.init(command, message, arguments, reddit);
 
-    let questions = reddits.questionReddits;
-    let ideas = reddits.ideaReddits;
+    let questions = reddits.question;
+    let ideas = reddits.idea;
 
     if(command == "question" || command == "q") {
       rhelpers.mapTypeOfReddit(arguments, message, questions);  
     }
-    else if(command == "questionHelp" || command == "qh") {
-      rhelpers.redditHelp(arguments, message, questions, "question");
-    }
     else if(command == "idea" || command == "i") {
       rhelpers.mapTypeOfReddit(arguments, message, ideas);
     }
-    else if(command == "ideaHelp" || command == "ih") {
-      rhelpers.redditHelp(arguments, message, ideas, "idea");
+    else if(command == "rhelp" || command == "rh") {
+      rhelpers.redditHelp(arguments, message);
     }
     else if(command == "questionRepeat" || command == "qr") {
       this.questionRepeat(arguments, message);

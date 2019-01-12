@@ -1,6 +1,7 @@
 const snoowrap = require("snoowrap");
 const auth = require("./../../../auth.json");
 const Helpers = require('../../helpers/helpers.js');
+const reddits = require("./../../../data/redditsMap.json");
 
 //init reddit instance
 const reddit = new snoowrap({
@@ -12,32 +13,41 @@ const reddit = new snoowrap({
 });
 
 module.exports = {
-  mapTypeOfReddit(arguments, recieved, typeObj) {
+  mapTypeOfReddit(arguments, recieved, typeObj, type=false) {
     let subReddit = arguments[0];
 
     typeObj.forEach((item) => {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab question
-        this.askQuestion(arguments, recieved, item.subreddit);
+        this.getTitle(arguments, recieved, item.subreddit, type);
       }
     });
   },
 
-  askQuestion(arguments, recieved, subreddit) {
+  getTitle(arguments, recieved, subreddit, type=false) {
     reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
       let questionIndex = Helpers.generateRandom(100);
       let question = posts.toJSON()[questionIndex]; //choose a question by index
+      let response = !type ? question.title : question.selftext;
 
-      recieved.channel.send(question.title);
+      if(type == "both") {
+        response = `**Title: ${question.title} \n ${question.selftext}`;
+      }
+
+      console.log(Helpers.truncate(response, 1998).length);
+      //send out response
+      recieved.channel.send(Helpers.truncate(response, 1998));
     });
   },
 
-  redditHelp(arguments, recieved, subreddit, title) {
-    let textPrompt = `\`b!${title} <type> \`\n **Types:   **`;
+  redditHelp(arguments, recieved) {
+    let helpCommand = arguments[0];
+    let textPrompt = `Commands for: **${helpCommand}**\n`;
+    let redditObj = reddits[helpCommand];
 
-    subreddit.forEach((item) => {
+    redditObj.forEach((item) => {
       textPrompt+=`${item.arg}, `;
     });
 
