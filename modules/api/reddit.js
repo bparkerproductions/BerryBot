@@ -24,12 +24,24 @@ module.exports = {
 
     let questions = reddits.question;
     let ideas = reddits.idea;
+    let jokes = reddits.jokes;
+    let misc = reddits.misc;
+    let music = reddits.music;
 
     if(command == "question" || command == "q") {
       rhelpers.mapTypeOfReddit(arguments, message, questions);  
     }
     else if(command == "idea" || command == "i") {
       rhelpers.mapTypeOfReddit(arguments, message, ideas);
+    }
+    else if(command == "joke" || command == "j") {
+      rhelpers.mapTypeOfReddit(arguments, message, jokes, 'both');
+    }
+    else if(command == "jerma") {
+      rhelpers.mapTypeOfReddit(arguments, message, misc, 'both');
+    }
+    else if(command == "music") {
+      rhelpers.mapTypeOfReddit(arguments, message, music, 'both');
     }
     else if(command == "rhelp" || command == "rh") {
       rhelpers.redditHelp(arguments, message);

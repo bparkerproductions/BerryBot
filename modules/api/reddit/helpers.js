@@ -23,6 +23,9 @@ module.exports = {
       }
     });
   },
+  musicRecommend(arguments, recieved) {
+
+  },
 
   getTitle(arguments, recieved, subreddit, type=false) {
     reddit.getSubreddit(subreddit)
@@ -31,9 +34,10 @@ module.exports = {
       let questionIndex = Helpers.generateRandom(100);
       let question = posts.toJSON()[questionIndex]; //choose a question by index
       let response = !type ? question.title : question.selftext;
+      let body = question.selftext ? question.selftext : question.url;
 
       if(type == "both") {
-        response = `**Title: ${question.title} \n ${question.selftext}`;
+        response = `${question.title} \n ${body}`;
       }
 
       console.log(Helpers.truncate(response, 1998).length);

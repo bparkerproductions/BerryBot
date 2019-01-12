@@ -8,7 +8,6 @@ module.exports = {
   init(command, message, arguments, reddit) {
     let copypasta = reddits.pasta;
 
-    console.log(command);
     if(command == "pasta" || command == "p") {
       rhelpers.mapTypeOfReddit(arguments, message, copypasta, 'desc');  
     }

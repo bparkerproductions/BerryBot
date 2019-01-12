@@ -52,5 +52,59 @@
       "arg": "random",
       "subreddit": "CopyPasta"
     }
+  ],
+  "misc": [
+    {
+      "arg": "random",
+      "subreddit": "Jerma985"
+    }
+  ],
+  "jokes": [
+    {
+      "arg": "random",
+      "subreddit": "Jokes"
+    },
+    {
+      "arg": "dark",
+      "subreddit": "DarkJokes"
+    },
+    {
+      "arg": "dad",
+      "subreddit": "DadJokes"
+    },
+    {
+      "arg": "clean",
+      "subreddit": "CleanJokes"
+    },
+    {
+      "arg": "dirty",
+      "subreddit": "DirtyJokes"
+    },
+    {
+      "arg": "anti",
+      "subreddit": "AntiJokes"
+    },
+    {
+      "arg": "3am",
+      "subreddit": "3amjokes"
+    }
+  ],
+  "music": [
+    {
+      "arg": "metal",
+      "subreddit": "Metal"
+    },
+    {
+      "arg": "random",
+      "subreddit": "Music"
+    },
+    {
+      "arg": "electronic",
+      "subreddit": "ElectronicMusic"
+    },
+    {
+      "arg": "dubstep",
+      "subreddit": "Dubstep"
+    }
   ]
 }
