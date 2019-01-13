@@ -25,8 +25,11 @@ module.exports = {
         if(type=="both") {
           this.getBody(arguments, recieved, item.subreddit)
         }
+        if(type=="music") {
+          this.getVideo(arguments, recieved, item.subreddit, 'music');
+        }
         if(type=="url") {
-          this.getURL(arguments, recieved, item.subreddit);
+          this.getVideo(arguments, recieved, item.subreddit);
         }
       }
     });
@@ -58,18 +61,45 @@ module.exports = {
     });
   },
 
-  getURL(arguments, recieved, subreddit) {
+  musicFilter(url) {
+    //we don't want self reddit posts to be returned for music
+    return url.includes('youtube.com') || 
+           url.includes("spotify") ||
+           url.includes("redd.it");
+  },
+
+  urlFilter(url) {
+    return !url.includes('reddit');
+  },
+
+  selectFilter(filter, question) {
+    if(filter == "music") {
+      return this.musicFilter(question.url)
+    }
+    else {
+      return this.urlFilter(question.url);
+    }
+  },
+
+  getVideo(arguments, recieved, subreddit, filter=false) {
     reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
-      let questionIndex = Helpers.generateRandom(100);
-      let question = posts.toJSON()[questionIndex]; //choose a question by index
+      while(true) {
+        let questionIndex = Helpers.generateRandom(100);
+        let question = posts.toJSON()[questionIndex]; //choose a question by index
 
-      console.log(question.url == false);
-      response = `${question.title} \n ${question.url}`;
+        let filterRule = this.selectFilter(filter, question);
 
-      //send out response
-      recieved.channel.send(response);
+        //if its not a reddit link, break loop
+        if(filterRule) {
+          response = `${question.title} \n ${question.url}`;
+
+          //send out response
+          recieved.channel.send(response);
+          return false;
+        }
+      }
     });
   },
 

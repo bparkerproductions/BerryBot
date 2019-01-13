@@ -41,7 +41,7 @@ module.exports = {
       rhelpers.mapTypeOfReddit(arguments, message, misc, 'url');
     }
     else if(command == "music" || command == "mu") {
-      rhelpers.mapTypeOfReddit(arguments, message, music, 'url');
+      rhelpers.mapTypeOfReddit(arguments, message, music, 'music');
     }
     else if(command == "rhelp" || command == "rh") {
       rhelpers.redditHelp(arguments, message);

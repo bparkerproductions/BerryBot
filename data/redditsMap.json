@@ -113,6 +113,22 @@
     {
       "arg": "dubstep",
       "subreddit": "Dubstep"
+    },
+    {
+      "arg": "indie",
+      "subreddit": "Indie"
+    },
+    {
+      "arg": "classical",
+      "subreddit": "ClassicalMusic"
+    },
+    {
+      "arg": "jazz",
+      "subreddit": "jazz"
+    },
+    {
+      "arg": "rap",
+      "subreddit": "hiphopheads"
     }
   ]
 }
