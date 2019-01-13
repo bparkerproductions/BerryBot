@@ -55,8 +55,16 @@
   ],
   "misc": [
     {
-      "arg": "random",
+      "arg": "jerma",
       "subreddit": "Jerma985"
+    },
+    {
+      "arg": "tf2",
+      "subreddit": "tf2"
+    },
+    {
+      "arg": "fatcat",
+      "subreddit": "frugal_jerk"
     }
   ],
   "jokes": [

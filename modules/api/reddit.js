@@ -37,11 +37,11 @@ module.exports = {
     else if(command == "joke" || command == "j") {
       rhelpers.mapTypeOfReddit(arguments, message, jokes, 'both');
     }
-    else if(command == "jerma") {
-      rhelpers.mapTypeOfReddit(arguments, message, misc, 'both');
+    else if(command == "misc") {
+      rhelpers.mapTypeOfReddit(arguments, message, misc, 'url');
     }
-    else if(command == "music") {
-      rhelpers.mapTypeOfReddit(arguments, message, music, 'both');
+    else if(command == "music" || command == "mu") {
+      rhelpers.mapTypeOfReddit(arguments, message, music, 'url');
     }
     else if(command == "rhelp" || command == "rh") {
       rhelpers.redditHelp(arguments, message);

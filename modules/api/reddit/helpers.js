@@ -19,30 +19,57 @@ module.exports = {
     typeObj.forEach((item) => {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab question
-        this.getTitle(arguments, recieved, item.subreddit, type);
+        if(!type) {
+          this.getTitle(arguments, recieved, item.subreddit);
+        }
+        if(type=="both") {
+          this.getBody(arguments, recieved, item.subreddit)
+        }
+        if(type=="url") {
+          this.getURL(arguments, recieved, item.subreddit);
+        }
       }
     });
   },
-  musicRecommend(arguments, recieved) {
 
-  },
-
-  getTitle(arguments, recieved, subreddit, type=false) {
+  getTitle(arguments, recieved, subreddit) {
     reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
       let questionIndex = Helpers.generateRandom(100);
       let question = posts.toJSON()[questionIndex]; //choose a question by index
-      let response = !type ? question.title : question.selftext;
-      let body = question.selftext ? question.selftext : question.url;
 
-      if(type == "both") {
-        response = `${question.title} \n ${body}`;
-      }
-
-      console.log(Helpers.truncate(response, 1998).length);
       //send out response
-      recieved.channel.send(Helpers.truncate(response, 1998));
+      recieved.channel.send(question.title);
+    });
+  },
+
+  getBody(arguments, recieved, subreddit) {
+    reddit.getSubreddit(subreddit)
+    .getHot({'limit': 100})
+    .then( posts => {
+      let questionIndex = Helpers.generateRandom(100);
+      let question = posts.toJSON()[questionIndex]; //choose a question by index
+
+      response = `${question.title} \n ${question.selftext}`;
+
+      //send out response
+      recieved.channel.send(response);
+    });
+  },
+
+  getURL(arguments, recieved, subreddit) {
+    reddit.getSubreddit(subreddit)
+    .getHot({'limit': 100})
+    .then( posts => {
+      let questionIndex = Helpers.generateRandom(100);
+      let question = posts.toJSON()[questionIndex]; //choose a question by index
+
+      console.log(question.url == false);
+      response = `${question.title} \n ${question.url}`;
+
+      //send out response
+      recieved.channel.send(response);
     });
   },
 
