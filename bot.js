@@ -14,6 +14,9 @@ const User = require("./modules/user/user.js");
 const Help = require("./modules/help/help.js");
 const Moderation = require("./modules/moderation/moderation.js");
 
+//set global root path
+global.__base = __dirname;
+
 client.on('ready', () => {
   //let botChannel = client.channels.get(channels["bot-test"]);
 });
@@ -56,8 +59,6 @@ function mapCommands(command, message, arguments) {
   Help.init(command, message, arguments);
   Moderation.init(command, message, arguments);
 }
-
-
 
 // Get your bot's secret token from:
 // https://discordapp.com/developers/applications/

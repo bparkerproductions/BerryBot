@@ -1,4 +1,4 @@
-const helpText = require("./../../data/text.json");
+const helpText = require("./../../data/help.json");
 const config = require("./../../data/config.json");
 
 module.exports = {
@@ -12,37 +12,28 @@ module.exports = {
 
   help(arguments, received) {
     let command = arguments[0]; //the command they need help with
-    let notFound = `Sorry, the command \`${command}\` was not found`; //default
-    let message;
 
-    //command not entered
-    if(command === undefined || command == "") {
+    //list all commands on base command
+    if(command === "" || command == undefined) {
       this.listCommands(arguments, received);
-      return;
     }
 
-    //command not found
-    else if(helpText.help[command] == undefined) {
-      message = notFound;
-    }
+    helpText.help.forEach( elem => {
+      if(elem.name == command) {
+        received.channel.send(`To use ${elem.name} type: \`${elem.command}\``);
+        return;
+      }
+    });
 
-    //find appropriate command from text config file
-    else {
-      let commandText = helpText.help[command].command;
-      let description = helpText.help[command].description;
-
-      message =  `**${description}:** \`\`\`${config.prefix}${commandText}\`\`\``;
-    }
-
-    //send message to channel
-    received.channel.send(message);
+    //received.channel.send(`Sorry, the command \`${command}\` was not found`);
   },
 
   listCommands(arguments, received) {
-    let helpStr = "Available commands are:\n";
+    let helpStr = "Use `b!help <arg>` for more details\n";
 
-    let list = Object.keys(helpText.help).forEach((elem) => {
-      helpStr +=  `**${elem}**\n`;
+    let list = helpText.help.forEach( elem => {
+      console.log(elem);
+      helpStr +=  `**${elem.name}** - ${elem.description}\n`;
     });
 
     received.channel.send(helpStr);

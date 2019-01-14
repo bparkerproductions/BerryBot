@@ -1,0 +1,24 @@
+{
+  "help": [
+    {
+      "name": "chain",
+      "command": "chain <amount> <message>",
+      "description": "Chain x amount of messages together"
+    },
+    {
+      "name": "whisper",
+      "command": "whisper <message>",
+      "description": "Whisper a sincere message"
+    },
+    {
+      "name": "yell",
+      "command": "yell <message>",
+      "description": "Yell at a user or make the bot yell"
+    },
+    {
+      "name": "rhelp",
+      "command": "rhelp <module>",
+      "description": "Get more help commands for the reddit modules"
+    }
+  ]
+}

@@ -5,7 +5,6 @@ const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require("./helpers.js");
 const reddits = require("./../../../data/redditsMap.json");
 const fs = require("fs");
-
 const reddit = require("./../../../reddit.js");
 
 module.exports = {
@@ -56,17 +55,17 @@ module.exports = {
   },
 
   storeQuestion(question) {   
-      //set it in the file
-      reddits.recentQuestion.question = question;
+    //set it in the file
+    reddits.recentQuestion.question = question;
 
-      //write it to the file
-      fs.writeFile(
-        'data/redditsMap.json', 
-        JSON.stringify(reddits, null, 2), 
-        (err) => {
-          if(err) return console.log(err);
-        }
-      );
+    //write it to the file
+    fs.writeFile(
+      'data/redditsMap.json', 
+      JSON.stringify(reddits, null, 2), 
+      (err) => {
+        if(err) return console.log(err);
+      }
+    );
   },
 
   questionRepeat(arguments, recieved) {
