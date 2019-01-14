@@ -1,7 +1,6 @@
 const auth = require("./../../auth.json");
 const Helpers = require('../helpers/helpers.js');
 const snoowrap = require("snoowrap");
-const fs = require("fs");
 const reddits = require("./../../data/redditsMap.json");
 
 //modules
@@ -45,9 +44,6 @@ module.exports = {
     }
     else if(command == "rhelp" || command == "rh") {
       rhelpers.redditHelp(arguments, message);
-    }
-    else if(command == "questionRepeat" || command == "qr") {
-      this.questionRepeat(arguments, message);
     }
   }
 }

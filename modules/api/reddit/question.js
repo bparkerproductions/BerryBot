@@ -4,17 +4,9 @@
 const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require("./helpers.js");
 const reddits = require("./../../../data/redditsMap.json");
-const snoowrap = require("snoowrap");
-const auth = require("./../../../auth.json");
+const fs = require("fs");
 
-//init reddit instance
-const reddit = new snoowrap({
-  userAgent: "Berry bot with Node.js snoo wrapper by /u/fetal_sacrifice",
-  clientSecret: auth.redditSecret,
-  clientId: auth.redditId,
-  username: auth.redditUser,
-  password: auth.redditPass
-});
+const reddit = require("./../../../reddit.js");
 
 module.exports = {
   init(command, message, arguments) {
@@ -22,6 +14,10 @@ module.exports = {
 
     if(command == "question" || command == "q") {
       this.mapQuestion(arguments, message, questions);  
+    }
+
+    else if(command == "qrepeat" || command == "qr") {
+      this.questionRepeat(arguments, message);
     }
   },
 
@@ -36,6 +32,11 @@ module.exports = {
     });
   },
 
+  questionFilter(post) {
+    //if the post doesn't include reddit and has a question mark
+    return !post.title.includes('reddit') && post.title.includes('?');
+  },
+
   getQuestion(arguments, recieved, subreddit) {
     reddit.getSubreddit(subreddit)
     .getRandomSubmission()
@@ -43,7 +44,14 @@ module.exports = {
       let post = posts.toJSON(); //choose a post by index
 
       //send out response
-      recieved.channel.send(post.title);
+      if(this.questionFilter(post)) {
+        recieved.channel.send(post.title).then( res => {
+          this.storeQuestion(res.content);
+        })
+      }
+      else {
+        this.getQuestion(arguments, recieved, subreddit);
+      }
     });
   },
 
