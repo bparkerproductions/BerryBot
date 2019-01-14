@@ -26,10 +26,13 @@ module.exports = {
           this.getBody(arguments, recieved, item.subreddit)
         }
         if(type=="music") {
-          this.getVideo(arguments, recieved, item.subreddit, 'music');
+          this.getLink(arguments, recieved, item.subreddit, 'music');
         }
         if(type=="url") {
-          this.getVideo(arguments, recieved, item.subreddit);
+          this.getLink(arguments, recieved, item.subreddit);
+        }
+        if(type=="gif") {
+          this.getLink(arguments, recieved, item.subreddit, false, false)
         }
       }
     });
@@ -64,12 +67,11 @@ module.exports = {
   musicFilter(url) {
     //we don't want self reddit posts to be returned for music
     return url.includes('youtube.com') || 
-           url.includes("spotify") ||
-           url.includes("redd.it");
+           url.includes('spotify');
   },
 
   urlFilter(url) {
-    return !url.includes('reddit');
+    return !url.includes('reddit') && !url.includes("redd.it");
   },
 
   selectFilter(filter, question) {
@@ -81,24 +83,23 @@ module.exports = {
     }
   },
 
-  getVideo(arguments, recieved, subreddit, filter=false) {
+  getLink(arguments, recieved, subreddit, filter='url', title=true) {
     reddit.getSubreddit(subreddit)
-    .getHot({'limit': 100})
+    .getRandomSubmission()
     .then( posts => {
-      while(true) {
-        let questionIndex = Helpers.generateRandom(100);
-        let question = posts.toJSON()[questionIndex]; //choose a question by index
+      let question = posts.toJSON(); //choose a question by index
+      let filterRule = this.selectFilter(filter, question);
+      let postTitle = title == true ? question.title : "";
 
-        let filterRule = this.selectFilter(filter, question);
+      //if its not a reddit link, break loop
+      if(filterRule) {
+        response = `${postTitle} \n ${question.url}`;
 
-        //if its not a reddit link, break loop
-        if(filterRule) {
-          response = `${question.title} \n ${question.url}`;
-
-          //send out response
-          recieved.channel.send(response);
-          return false;
-        }
+        //send out response
+        recieved.channel.send(response);
+      }
+      else {
+        this.getLink(arguments, recieved, subreddit, filter, title);
       }
     });
   },

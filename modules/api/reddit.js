@@ -7,6 +7,7 @@ const reddits = require("./../../data/redditsMap.json");
 //modules
 const rhelpers = require("./reddit/helpers.js");
 const Generator = require("./reddit/generator.js");
+const Gifs = require("./reddit/gif.js");
 
 //init reddit instance
 const reddit = new snoowrap({
@@ -21,6 +22,7 @@ module.exports = {
   init(command, message, arguments) {
     //init other modules
     Generator.init(command, message, arguments, reddit);
+    Gifs.init(command, message, arguments, reddit);
 
     let questions = reddits.question;
     let ideas = reddits.idea;

@@ -130,5 +130,27 @@
       "arg": "rap",
       "subreddit": "hiphopheads"
     }
+  ],
+  "gif": [
+    {
+      "arg": "random",
+      "subreddit": "gif"
+    },
+    {
+      "arg": "wholesome",
+      "subreddit": "WholesomeGifs"
+    },
+    {
+      "arg": "recipe",
+      "subreddit": "GifRecipes"
+    },
+    {
+      "arg": "satisfying",
+      "subreddit": "OddlySatisfying"
+    },
+    {
+      "arg": "reaction",
+      "subreddit": "ReactionGifs"
+    }
   ]
 }

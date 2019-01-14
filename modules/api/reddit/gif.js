@@ -6,10 +6,10 @@ const reddits = require("./../../../data/redditsMap.json");
 
 module.exports = {
   init(command, message, arguments, reddit) {
-    let copypasta = reddits.pasta;
+    let gif = reddits.gif;
 
-    if(command == "pasta" || command == "p") {
-      rhelpers.mapTypeOfReddit(arguments, message, copypasta, 'desc');  
+    if(command == "gif") {
+      rhelpers.mapTypeOfReddit(arguments, message, gif, 'gif');  
     }
   },
 }
