@@ -18,7 +18,7 @@ module.exports = {
 
     typeObj.forEach((item) => {
       if(item.arg == subReddit) {
-        //if the arg matches a config option, grab question
+        //if the arg matches a config option, grab post
         if(!type) {
           this.getTitle(arguments, recieved, item.subreddit);
         }
@@ -42,11 +42,11 @@ module.exports = {
     reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
-      let questionIndex = Helpers.generateRandom(100);
-      let question = posts.toJSON()[questionIndex]; //choose a question by index
+      let postIndex = Helpers.generateRandom(100);
+      let post = posts.toJSON()[postIndex]; //choose a post by index
 
       //send out response
-      recieved.channel.send(question.title);
+      recieved.channel.send(post.title);
     });
   },
 
@@ -54,10 +54,10 @@ module.exports = {
     reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
-      let questionIndex = Helpers.generateRandom(100);
-      let question = posts.toJSON()[questionIndex]; //choose a question by index
+      let postIndex = Helpers.generateRandom(100);
+      let post = posts.toJSON()[postIndex]; //choose a post by index
 
-      response = `${question.title} \n ${question.selftext}`;
+      response = `${post.title} \n ${post.selftext}`;
 
       //send out response
       recieved.channel.send(response);
@@ -74,12 +74,12 @@ module.exports = {
     return !url.includes('reddit') && !url.includes("redd.it");
   },
 
-  selectFilter(filter, question) {
+  selectFilter(filter, post) {
     if(filter == "music") {
-      return this.musicFilter(question.url)
+      return this.musicFilter(post.url)
     }
     else {
-      return this.urlFilter(question.url);
+      return this.urlFilter(post.url);
     }
   },
 
@@ -87,13 +87,13 @@ module.exports = {
     reddit.getSubreddit(subreddit)
     .getRandomSubmission()
     .then( posts => {
-      let question = posts.toJSON(); //choose a question by index
-      let filterRule = this.selectFilter(filter, question);
-      let postTitle = title == true ? question.title : "";
+      let post = posts.toJSON(); //choose a post by index
+      let filterRule = this.selectFilter(filter, post);
+      let postTitle = title == true ? post.title : "";
 
       //if its not a reddit link, break loop
       if(filterRule) {
-        response = `${postTitle} \n ${question.url}`;
+        response = `${postTitle} \n ${post.url}`;
 
         //send out response
         recieved.channel.send(response);
