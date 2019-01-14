@@ -93,17 +93,5 @@ module.exports = {
     else {
       return this.urlFilter(post.url);
     }
-  },
-
-  redditHelp(arguments, recieved) {
-    let helpCommand = arguments[0];
-    let textPrompt = `Commands for: **${helpCommand}**\n`;
-    let redditObj = reddits[helpCommand];
-
-    redditObj.forEach((item) => {
-      textPrompt+=`${item.arg}, `;
-    });
-
-    recieved.channel.send(textPrompt);
   }
 }

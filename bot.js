@@ -26,7 +26,7 @@ client.on('message', (receivedMessage) => {
       return
     }
 
-    Automod.init(receivedMessage);
+    //Automod.init(receivedMessage);
     
     if (receivedMessage.content.startsWith(config.prefix)) {
       processCommand(receivedMessage)

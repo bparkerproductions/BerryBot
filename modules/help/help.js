@@ -1,5 +1,6 @@
 const helpText = require("./../../data/help.json");
 const config = require("./../../data/config.json");
+const reddits = require("./../../data/redditsMap.json");
 
 module.exports = {
   init(command, message, arguments) {
@@ -20,7 +21,7 @@ module.exports = {
 
     helpText.help.forEach( elem => {
       if(elem.name == command) {
-        received.channel.send(`To use ${elem.name} type: \`${elem.command}\``);
+        received.channel.send(`To use ${elem.name} type: \`b!${elem.command}\``);
         return;
       }
     });
@@ -37,5 +38,17 @@ module.exports = {
     });
 
     received.channel.send(helpStr);
+  },
+
+  redditHelp(arguments, recieved) {
+    let helpCommand = arguments[0];
+    let textPrompt = `Commands for: **${helpCommand}**\n`;
+    let redditObj = reddits[helpCommand];
+
+    redditObj.forEach((item) => {
+      textPrompt+=`${item.arg}, `;
+    });
+
+    recieved.channel.send(textPrompt);
   }
 }

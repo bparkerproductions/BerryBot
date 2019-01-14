@@ -3,12 +3,8 @@ let {channelName} = require("./../../data/config.json");
 module.exports = {
   init(command, message, arguments, client) {
     switch(command) {
-      case "channelcount":
+      case "channels":
         this.amountChannels(arguments, message, client);
-        break;
-
-      case "servermsgcount":
-        this.amountMessages(arguments, message, client);
         break;
     }
   },
