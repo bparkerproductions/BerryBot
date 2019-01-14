@@ -64,6 +64,28 @@ module.exports = {
     });
   },
 
+  getLink(arguments, recieved, subreddit, filter='url', title=true) {
+    reddit.getSubreddit(subreddit)
+    .getRandomSubmission()
+    .then( posts => {
+      let post = posts.toJSON(); //choose a post by index
+      let filterRule = this.selectFilter(filter, post);
+      let postTitle = title == true ? post.title : "";
+
+      //if filter passes, return
+      if(filterRule) {
+        response = `${postTitle} \n ${post.url}`;
+
+        //send out response
+        recieved.channel.send(response);
+      }
+      else {
+        //try again with a post
+        this.getLink(arguments, recieved, subreddit, filter, title);
+      }
+    });
+  },
+
   musicFilter(url) {
     //we don't want self reddit posts to be returned for music
     return url.includes('youtube.com') || 
@@ -81,27 +103,6 @@ module.exports = {
     else {
       return this.urlFilter(post.url);
     }
-  },
-
-  getLink(arguments, recieved, subreddit, filter='url', title=true) {
-    reddit.getSubreddit(subreddit)
-    .getRandomSubmission()
-    .then( posts => {
-      let post = posts.toJSON(); //choose a post by index
-      let filterRule = this.selectFilter(filter, post);
-      let postTitle = title == true ? post.title : "";
-
-      //if its not a reddit link, break loop
-      if(filterRule) {
-        response = `${postTitle} \n ${post.url}`;
-
-        //send out response
-        recieved.channel.send(response);
-      }
-      else {
-        this.getLink(arguments, recieved, subreddit, filter, title);
-      }
-    });
   },
 
   redditHelp(arguments, recieved) {

@@ -8,6 +8,7 @@ const reddits = require("./../../data/redditsMap.json");
 const rhelpers = require("./reddit/helpers.js");
 const Generator = require("./reddit/generator.js");
 const Gifs = require("./reddit/gif.js");
+const Questions = require("./reddit/question.js");
 
 //init reddit instance
 const reddit = new snoowrap({
@@ -23,17 +24,14 @@ module.exports = {
     //init other modules
     Generator.init(command, message, arguments, reddit);
     Gifs.init(command, message, arguments, reddit);
+    Questions.init(command, message, arguments, reddit);
 
-    let questions = reddits.question;
     let ideas = reddits.idea;
     let jokes = reddits.jokes;
     let misc = reddits.misc;
     let music = reddits.music;
 
-    if(command == "question" || command == "q") {
-      rhelpers.mapTypeOfReddit(arguments, message, questions);  
-    }
-    else if(command == "idea" || command == "i") {
+    if(command == "idea" || command == "i") {
       rhelpers.mapTypeOfReddit(arguments, message, ideas);
     }
     else if(command == "joke" || command == "j") {
@@ -51,27 +49,5 @@ module.exports = {
     else if(command == "questionRepeat" || command == "qr") {
       this.questionRepeat(arguments, message);
     }
-  },
-
-  questionFilter(question) {
-    return !question.title.toLowerCase().includes("reddit");
-  },
-
-  storeQuestion(question) {   
-      //set it in the file
-      reddits.recentQuestion.question = question;
-
-      //write it to the file
-      fs.writeFile(
-        'data/redditsMap.json', 
-        JSON.stringify(reddits, null, 2), 
-        (err) => {
-          if(err) return console.log(err);
-        }
-      );
-  },
-
-  questionRepeat(arguments, recieved) {
-    recieved.channel.send(reddits.recentQuestion.question);
   }
 }
