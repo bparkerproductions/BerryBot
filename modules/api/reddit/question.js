@@ -4,6 +4,7 @@
 const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require("./helpers.js");
 const reddits = require("./../../../data/redditsMap.json");
+const storage = require("./../../../data/storage.json");
 const fs = require("fs");
 const reddit = require("./../../../reddit.js");
 
@@ -33,7 +34,8 @@ module.exports = {
 
   questionFilter(post) {
     //if the post doesn't include reddit and has a question mark
-    return !post.title.includes('reddit') && post.title.includes('?');
+    let title = post.title.toLowerCase();
+    return !title.includes('reddit') && title.includes('?');
   },
 
   getQuestion(arguments, recieved, subreddit) {
@@ -56,12 +58,12 @@ module.exports = {
 
   storeQuestion(question) {   
     //set it in the file
-    reddits.recentQuestion.question = question;
+    storage.recentQuestion.question = question;
 
     //write it to the file
     fs.writeFile(
-      'data/redditsMap.json', 
-      JSON.stringify(reddits, null, 2), 
+      'data/storage.json', 
+      JSON.stringify(storage, null, 2), 
       (err) => {
         if(err) return console.log(err);
       }
@@ -69,6 +71,6 @@ module.exports = {
   },
 
   questionRepeat(arguments, recieved) {
-    recieved.channel.send(reddits.recentQuestion.question);
+    recieved.channel.send(storage.recentQuestion.question);
   }
 }

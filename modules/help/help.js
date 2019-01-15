@@ -40,13 +40,37 @@ module.exports = {
     received.channel.send(helpStr);
   },
 
+  listHelp(obj, name) {
+    let textPrompt = `Use \`b!${name} <arg>\`\n Args are: `;
+
+    obj.forEach( item => {
+      textPrompt+=`${item.arg}, `;
+    });
+
+    return textPrompt.trim();
+  },
+
   redditHelp(arguments, recieved) {
     let helpCommand = arguments[0];
-    let textPrompt = `Commands for: **${helpCommand}**\n`;
     let redditObj = reddits[helpCommand];
 
-    redditObj.forEach((item) => {
-      textPrompt+=`${item.arg}, `;
+    if(helpCommand == "all" || helpCommand == undefined) {
+      this.rhelpAll(arguments, recieved);
+      return;
+    }
+
+    let list = this.listHelp(redditObj, helpCommand);
+    recieved.channel.send(list);
+  },
+
+  rhelpAll(arguments, recieved) {
+    let textPrompt = "**Listing all rhelp commands:** \n\n";
+
+    Object.entries(reddits).forEach( item => {
+      let name = item[0];
+      let items = item[1];
+      let list = this.listHelp(items, name);
+      textPrompt+=`${list}\n\n `;
     });
 
     recieved.channel.send(textPrompt);
