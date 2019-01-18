@@ -85,13 +85,22 @@ module.exports = {
     return !url.includes('reddit') && !url.includes("redd.it");
   },
 
+  gifExclusion: [
+    "youtube", "twitter", "news", "minus", 
+    "streamable", "reddit", "redd.it", "youtu.be"
+  ],
+
   gifFilter(url) {
-    //no YT links or twitter for gifs(they don't embed properly)
-    return this.urlFilter(url) && 
-    !url.includes("youtube") &&
-    !url.includes("twitter") &&
-    !url.includes("news") &&
-    !url.includes("minus");
+    let arr = this.gifExclusion;
+
+    for(let i=0; i<arr.length; i++) {
+      if(url.includes(arr[i])) {
+        return false; //it includes a filtered out word, don't pass
+      }
+    };
+
+    //filter passed, return
+    return true;
   },
 
   selectFilter(filter, post) {
