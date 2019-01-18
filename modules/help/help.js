@@ -4,10 +4,11 @@ const reddits = require("./../../data/redditsMap.json");
 
 module.exports = {
   init(command, message, arguments) {
-    switch(command) {
-      case "help":
-        this.help(arguments, message);
-        break;
+    if(command == "help" || command == "h") {
+      this.help(arguments, message);
+    }
+    else if(command == "rhelp" || command == "rh") {
+      this.redditHelp(arguments, message);
     }
   },
 
@@ -30,11 +31,10 @@ module.exports = {
   },
 
   listCommands(arguments, received) {
-    let helpStr = "Use `b!help <arg>` for more details\n";
+    let helpStr = "Use `b!help <arg>` for more details\n\n";
 
     let list = helpText.help.forEach( elem => {
-      console.log(elem);
-      helpStr +=  `**${elem.name}** - ${elem.description}\n`;
+      helpStr +=  `**${elem.name}** - ${elem.description}\n\n`;
     });
 
     received.channel.send(helpStr);
@@ -53,6 +53,12 @@ module.exports = {
   redditHelp(arguments, recieved) {
     let helpCommand = arguments[0];
     let redditObj = reddits[helpCommand];
+
+    //if command doesn't exist, don't continue
+    if(redditObj == undefined) {
+      recieved.channel.send(`${helpCommand} was not found`);
+      return;
+    }
 
     if(helpCommand == "all" || helpCommand == undefined) {
       this.rhelpAll(arguments, recieved);

@@ -5,7 +5,7 @@ const rhelpers = require("./helpers.js");
 const reddits = require("./../../../data/redditsMap.json");
 
 module.exports = {
-  init(command, message, arguments, reddit) {
+  init(command, message, arguments) {
     let copypasta = reddits.pasta;
 
     if(command == "pasta" || command == "p") {

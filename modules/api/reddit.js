@@ -1,6 +1,5 @@
 const Helpers = require('../helpers/helpers.js');
 const reddits = require("./../../data/redditsMap.json");
-const help = require("./../help/help.js");
 const reddit = require("./../../reddit.js");
 
 //modules
@@ -8,14 +7,16 @@ const rhelpers = require("./reddit/helpers.js");
 const Generator = require("./reddit/generator.js");
 const Gifs = require("./reddit/gif.js");
 const Questions = require("./reddit/question.js");
+const Anime = require("./reddit/anime.js");
 
 
 module.exports = {
   init(command, message, arguments) {
     //init other modules
-    Generator.init(command, message, arguments, reddit);
-    Gifs.init(command, message, arguments, reddit);
-    Questions.init(command, message, arguments, reddit);
+    Generator.init(command, message, arguments);
+    Gifs.init(command, message, arguments);
+    Questions.init(command, message, arguments);
+    Anime.init(command, message, arguments);
 
     let ideas = reddits.idea;
     let jokes = reddits.jokes;
@@ -33,9 +34,6 @@ module.exports = {
     }
     else if(command == "music" || command == "mu") {
       rhelpers.mapTypeOfReddit(arguments, message, music, 'music');
-    }
-    else if(command == "rhelp" || command == "rh") {
-      help.redditHelp(arguments, message);
     }
   }
 }

@@ -22,7 +22,7 @@ module.exports = {
           this.getLink(arguments, recieved, item.subreddit);
         }
         if(type=="gif") {
-          this.getLink(arguments, recieved, item.subreddit, false, false)
+          this.getLink(arguments, recieved, item.subreddit, 'gif', false)
         }
       }
     });
@@ -46,7 +46,6 @@ module.exports = {
     .then( posts => {
       let postIndex = Helpers.generateRandom(100);
       let post = posts.toJSON()[postIndex]; //choose a post by index
-
       response = `${post.title} \n ${post.selftext}`;
 
       //send out response
@@ -86,9 +85,21 @@ module.exports = {
     return !url.includes('reddit') && !url.includes("redd.it");
   },
 
+  gifFilter(url) {
+    //no YT links or twitter for gifs(they don't embed properly)
+    return this.urlFilter(url) && 
+    !url.includes("youtube") &&
+    !url.includes("twitter") &&
+    !url.includes("news") &&
+    !url.includes("minus");
+  },
+
   selectFilter(filter, post) {
     if(filter == "music") {
       return this.musicFilter(post.url)
+    }
+    if(filter == "gif") {
+      return this.gifFilter(post.url);
     }
     else {
       return this.urlFilter(post.url);
