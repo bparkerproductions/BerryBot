@@ -54,12 +54,6 @@ module.exports = {
     let helpCommand = arguments[0];
     let redditObj = reddits[helpCommand];
 
-    //if command doesn't exist, don't continue
-    if(redditObj == undefined) {
-      recieved.channel.send(`${helpCommand} was not found`);
-      return;
-    }
-
     if(helpCommand == "all" || helpCommand == undefined) {
       this.rhelpAll(arguments, recieved);
       return;
