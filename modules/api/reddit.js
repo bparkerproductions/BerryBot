@@ -1,6 +1,6 @@
 const Helpers = require('../helpers/helpers.js');
-const reddits = require("./../../data/redditsMap.json");
-const reddit = require("./../../reddit.js");
+const reddits = require('./../../data/redditsMap.json');
+const reddit = require('./../../reddit.js');
 
 //modules
 const rhelpers = require("./reddit/helpers.js");

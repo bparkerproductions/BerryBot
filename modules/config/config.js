@@ -1,7 +1,7 @@
-const config = require("./../../data/config.json");
-const configFileName = "data/config.json";
-const fs = require("fs");
-const Helpers = require("./../helpers/helpers.js");
+const config = require('./../../data/config.json');
+const configFileName = 'data/config.json';
+const fs = require('fs');
+const Helpers = require('./../helpers/helpers.js');
 
 module.exports = {
   init(command, message, arguments) {

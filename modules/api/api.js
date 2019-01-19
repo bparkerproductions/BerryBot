@@ -1,4 +1,4 @@
-const Reddit = require("./reddit.js");
+const Reddit = require('./reddit.js');
 
 module.exports = {
   init(command, message, arguments) {

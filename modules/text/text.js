@@ -1,8 +1,8 @@
 //MODULE for doing basic text manipulations
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const config = require("./../../data/config.json");
-const Helpers = require("./../helpers/helpers.js");
+const config = require('./../../data/config.json');
+const Helpers = require('./../helpers/helpers.js');
 
 module.exports = {
   init(command, message, arguments) {

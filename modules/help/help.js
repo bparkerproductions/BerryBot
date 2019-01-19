@@ -1,6 +1,6 @@
-const helpText = require("./../../data/help.json");
-const config = require("./../../data/config.json");
-const reddits = require("./../../data/redditsMap.json");
+const helpText = require('./../../data/help.json');
+const config = require('./../../data/config.json');
+const reddits = require('./../../data/redditsMap.json');
 
 module.exports = {
   init(command, message, arguments) {

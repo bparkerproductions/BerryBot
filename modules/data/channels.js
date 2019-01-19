@@ -1,4 +1,4 @@
-let {channelName} = require("./../../data/config.json");
+let {channelName} = require('./../../data/config.json');
 
 module.exports = {
   init(command, message, arguments, client) {

@@ -2,11 +2,11 @@
  * Module for question functionality from reddit
  */
 const Helpers = require('../../helpers/helpers.js');
-const rhelpers = require("./helpers.js");
-const reddits = require("./../../../data/redditsMap.json");
-const storage = require("./../../../data/storage.json");
-const fs = require("fs");
-const reddit = require("./../../../reddit.js");
+const rhelpers = require('./helpers.js');
+const reddits = require('./../../../data/redditsMap.json');
+const storage = require('./../../../data/storage.json');
+const fs = require('fs');
+const reddit = require('./../../../reddit.js');
 
 module.exports = {
   init(command, message, arguments) {

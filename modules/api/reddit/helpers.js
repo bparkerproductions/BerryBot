@@ -1,7 +1,7 @@
 const Helpers = require('../../helpers/helpers.js');
-const reddits = require("./../../../data/redditsMap.json");
-const reddit = require("./../../../reddit.js");
-const filterHelpers = require("./filters.js");
+const reddits = require('./../../../data/redditsMap.json');
+const reddit = require('./../../../reddit.js');
+const filterHelpers = require('./filters.js');
 
 module.exports = {
   mapTypeOfReddit(arguments, recieved, typeObj, type=false) {
