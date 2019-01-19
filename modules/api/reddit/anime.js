@@ -1,6 +1,7 @@
 const reddit = require("./../../../reddit.js");
 const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require('./helpers.js');
+const filters = require("./filters.js");
 
 module.exports = {
   init(command, message, arguments) {
@@ -45,11 +46,6 @@ module.exports = {
     })
   },
 
-  animeFilter(url) {
-    return rhelpers.gifFilter(url) &&
-           !url.includes("akira.tits-are");
-  },
-
   notifyUser(result, arguments, recieved, command) {
     //expect a user here
     let reciever = arguments[0] ? arguments[0] : "imaginary friend";
@@ -63,7 +59,7 @@ module.exports = {
     let media = result.toJSON()[index].url;
 
     //send message
-    if(this.animeFilter(media)) {
+    if(filters.animeFilter(media)) {
       recieved.channel.send(`${message}\n\n${media}`);
     }
     else {

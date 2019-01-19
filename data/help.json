@@ -19,6 +19,15 @@
       "name": "rhelp",
       "command": "rhelp <module>",
       "description": "Get more help commands for the reddit modules"
+    },
+    {
+      "name": "actions",
+      "command": "<action> <user>",
+      "commands": {
+        "list": ["hug", "kiss", "cuddle", "pat", "lick"],
+        "verb": "actions"
+      },
+      "description": "Perform an action on a user!"
     }
   ]
 }
