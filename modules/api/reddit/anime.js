@@ -1,3 +1,5 @@
+const embed = require('discord-embed-maker');
+
 const reddit = require('./../../../reddit.js');
 const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require('./helpers.js');
@@ -52,15 +54,20 @@ module.exports = {
     //console.log(recieved.mentions.users.Collection);
     let giver = recieved.author.username;
     let verb = this.actionMaps[command].verb; // map command to verb
-    let message = `${reciever} has been ${verb} by ${giver}`;
+    let message = `${reciever} has been ${verb} by *${giver}*`;
 
     //get random gif
     let index = Helpers.generateRandom(result.length);
     let media = result.toJSON()[index].url;
 
+    embed.setDescription(message);
+    embed.setImage(media);
+    embed.setColor("#ffcdc1");
+    embed.setURL(media);
+
     //send message
     if(filters.animeFilter(media)) {
-      recieved.channel.send(`${message}\n\n${media}`);
+      recieved.channel.send({embed: embed});
     }
     else {
       this.searchGif(arguments, recieved, command, "animeGifs");
