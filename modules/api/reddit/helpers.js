@@ -1,3 +1,5 @@
+const embed = require('discord-embed-maker');
+
 const Helpers = require('../../helpers/helpers.js');
 const reddits = require('./../../../data/redditsMap.json');
 const reddit = require('./../../../reddit.js');
@@ -25,6 +27,9 @@ module.exports = {
         if(type=="gif") {
           this.getLink(arguments, recieved, item.subreddit, 'gif', false)
         }
+        if(type=="image") {
+          this.getImage(arguments, recieved, item.subreddit);
+        }
       }
     });
   },
@@ -33,7 +38,6 @@ module.exports = {
     reddit.getSubreddit(subreddit)
     .getHot({'limit': 100})
     .then( posts => {
-      let postIndex = Helpers.generateRandom(100);
       let post = posts.toJSON()[postIndex]; //choose a post by index
 
       //send out response
@@ -54,6 +58,7 @@ module.exports = {
     });
   },
 
+  //TODO: make this function for links and another for gifs
   getLink(arguments, recieved, subreddit, filter='url', title=true) {
     reddit.getSubreddit(subreddit)
     .getRandomSubmission()
@@ -73,6 +78,16 @@ module.exports = {
         //try again with a post
         this.getLink(arguments, recieved, subreddit, filter, title);
       }
+    });
+  },
+
+  getImage(arguments, recieved, subreddit) {
+    reddit.getSubreddit(subreddit)
+    .getRandomSubmission()
+    .then( post => {
+      let imageURL = post.toJSON().url;
+      embed.setImage(imageURL);
+      recieved.channel.send({embed: embed});
     });
   }
 }

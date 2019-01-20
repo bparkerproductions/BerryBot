@@ -22,6 +22,7 @@ module.exports = {
     let jokes = reddits.jokes;
     let misc = reddits.misc;
     let music = reddits.music;
+    let image = reddits.image;
 
     if(command == "idea" || command == "i") {
       rhelpers.mapTypeOfReddit(arguments, message, ideas);
@@ -34,6 +35,9 @@ module.exports = {
     }
     else if(command == "music" || command == "mu") {
       rhelpers.mapTypeOfReddit(arguments, message, music, 'music');
+    }
+    else if(command == "image" || command == "img") {
+      rhelpers.mapTypeOfReddit(arguments, message, image, 'image');
     }
   }
 }
