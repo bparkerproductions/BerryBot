@@ -173,6 +173,10 @@
     {
       "arg": "facebook",
       "subreddit": "TerribleFacebookMemes"
+    },
+    {
+      "arg": "nature",
+      "subreddit": "EarthPorn"
     }
   ]
 }

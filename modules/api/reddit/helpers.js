@@ -82,17 +82,24 @@ module.exports = {
     });
   },
 
+  embedDesc(post) {
+    let redditBase = "http://www.reddit.com";
+    let postLink = `${redditBase}${post.toJSON().permalink}`;
+    let link = `[See Original](${postLink})`;
+    let subName = post.toJSON().subreddit_name_prefixed;
+
+    //return final string
+    return `${link} from ${subName}`;
+  },
+
   getImage(arguments, recieved, subreddit) {
     reddit.getSubreddit(subreddit)
     .getRandomSubmission()
     .then( post => {
-      let redditBase = "http://www.reddit.com";
-      let postLink = `${redditBase}${post.toJSON().permalink}`;
       let imageURL = post.toJSON().url;
-      let link = `[See Original](${postLink})`;
 
       //set up embed
-      embed.setDescription(link);
+      embed.setDescription(this.embedDesc(post));
       embed.setImage(imageURL);
       embed.setColor("#7aa6d3");
 
