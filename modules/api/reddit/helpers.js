@@ -36,10 +36,11 @@ module.exports = {
 
   getTitle(arguments, recieved, subreddit) {
     reddit.getSubreddit(subreddit)
-    .getRising({limit: 75})
+    .getHot({limit: 50})
     .then( posts => {
-      let postIndex = Helpers.generateRandom(100);
+      let postIndex = Helpers.generateRandom(50);
       let post = posts.toJSON()[postIndex]; //choose a post by index
+      console.log(post);
 
       //send out response
       recieved.channel.send(post.title);
@@ -62,9 +63,10 @@ module.exports = {
   //TODO: make this function for links and another for gifs
   getLink(arguments, recieved, subreddit, filter='url', title=true) {
     reddit.getSubreddit(subreddit)
-    .getRandomSubmission()
+    .getHot({'limit': 75})
     .then( posts => {
-      let post = posts.toJSON(); //choose a post by index
+      let postIndex = Helpers.generateRandom(75);
+      let post = posts.toJSON()[postIndex]; //choose a post by index
       let filterRule = filterHelpers.selectFilter(filter, post);
       let postTitle = title == true ? post.title : "";
 
