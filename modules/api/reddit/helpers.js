@@ -13,10 +13,10 @@ module.exports = {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab post
         if(!type) {
-          this.getTitle(arguments, recieved, item.subreddit);
+          this.getHot(arguments, recieved, item.subreddit, 'title');
         }
         if(type=="both") {
-          this.getBody(arguments, recieved, item.subreddit)
+          this.getHot(arguments, recieved, item.subreddit, 'body')
         }
         if(type=="music") {
           this.getLink(arguments, recieved, item.subreddit, 'music');
@@ -34,30 +34,35 @@ module.exports = {
     });
   },
 
-  getTitle(arguments, recieved, subreddit) {
+
+  getHot(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
     .getHot({limit: 50})
     .then( posts => {
-      let postIndex = Helpers.generateRandom(50);
-      let post = posts.toJSON()[postIndex]; //choose a post by index
-      console.log(post);
-
-      //send out response
-      recieved.channel.send(post.title);
+      if(type=="title") {
+        this.getTitle(posts, recieved);
+      }
+      else if(type=="body") {
+        this.getBody(posts, recieved);
+      }
     });
   },
 
-  getBody(arguments, recieved, subreddit) {
-    reddit.getSubreddit(subreddit)
-    .getHot({'limit': 100})
-    .then( posts => {
-      let postIndex = Helpers.generateRandom(100);
-      let post = posts.toJSON()[postIndex]; //choose a post by index
-      response = `${post.title} \n ${post.selftext}`;
+  grabPost(posts) {
+    let postIndex = Helpers.generateRandom(50);
+    return posts.toJSON()[postIndex]; //choose a post by index
+  },
 
-      //send out response
-      recieved.channel.send(response);
-    });
+  getTitle(posts, recieved) {
+    let title = this.grabPost(posts).title;
+    recieved.channel.send(title);
+  },
+
+  getBody(posts, recieved) {
+    let post = this.grabPost(posts);
+    let response = `${post.title} \n ${post.selftext}`;
+
+    recieved.channel.send(response);
   },
 
   //TODO: make this function for links and another for gifs
