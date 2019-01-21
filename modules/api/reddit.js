@@ -36,7 +36,7 @@ module.exports = {
     else if(command == "music" || command == "mu") {
       rhelpers.mapTypeOfReddit(arguments, message, music, 'music');
     }
-    else if(command == "image" || command == "img") {
+    else if(command == "image" || command == "img" || command == "pic") {
       rhelpers.mapTypeOfReddit(arguments, message, image, 'image');
     }
   }

@@ -155,12 +155,24 @@
     {
       "arg": "faggot",
       "subreddit": "AnimeFaggotGifs"
+    },
+    {
+      "arg": "cursed",
+      "subreddit": "CursedGifs"
     }
   ],
   "image": [
     {
       "arg": "cemetery",
       "subreddit": "ComedyCemetery"
+    },
+    {
+      "arg": "cursed",
+      "subreddit": "CursedImages"
+    },
+    {
+      "arg": "facebook",
+      "subreddit": "TerribleFacebookMemes"
     }
   ]
 }

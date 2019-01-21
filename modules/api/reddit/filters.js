@@ -11,7 +11,7 @@ module.exports = {
 
   gifExclusion: [
     "youtube", "twitter", "news", "minus", 
-    "streamable", "reddit", "redd.it", "youtu.be"
+    "streamable", "reddit", "redd.it", "youtu.be", "webm"
   ],
 
   gifFilter(url) {

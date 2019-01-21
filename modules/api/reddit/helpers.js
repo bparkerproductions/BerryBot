@@ -36,8 +36,9 @@ module.exports = {
 
   getTitle(arguments, recieved, subreddit) {
     reddit.getSubreddit(subreddit)
-    .getHot({'limit': 100})
+    .getRising({limit: 75})
     .then( posts => {
+      let postIndex = Helpers.generateRandom(100);
       let post = posts.toJSON()[postIndex]; //choose a post by index
 
       //send out response
@@ -85,8 +86,17 @@ module.exports = {
     reddit.getSubreddit(subreddit)
     .getRandomSubmission()
     .then( post => {
+      let redditBase = "http://www.reddit.com";
+      let postLink = `${redditBase}${post.toJSON().permalink}`;
       let imageURL = post.toJSON().url;
+      let link = `[See Original](${postLink})`;
+
+      //set up embed
+      embed.setDescription(link);
       embed.setImage(imageURL);
+      embed.setColor("#7aa6d3");
+
+      //send embed to channel
       recieved.channel.send({embed: embed});
     });
   }
