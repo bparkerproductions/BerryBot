@@ -1,4 +1,10 @@
 module.exports = {
+  gifExclusion: [
+    "youtube", "twitter", "news", "minus", 
+    "streamable", "reddit", "redd.it", "youtu.be", "webm"
+  ],
+
+  /* URL filters */
   musicFilter(url) {
     //we don't want self reddit posts to be returned for music
     return url.includes('youtube.com') || 
@@ -10,13 +16,8 @@ module.exports = {
   },
 
   imgFilter(url) {
-    return true;
+    return !url.includes('gif') && !url.includes('webm');
   },
-
-  gifExclusion: [
-    "youtube", "twitter", "news", "minus", 
-    "streamable", "reddit", "redd.it", "youtu.be", "webm"
-  ],
 
   gifFilter(url) {
     let arr = this.gifExclusion;
@@ -31,15 +32,30 @@ module.exports = {
     return true;
   },
 
+  /* Text filters */
+  bodyFilter(text) {
+    console.log(text.length);
+  },
+
   selectFilter(filter, post) {
     if(filter == "music") {
       return this.musicFilter(post.url)
     }
-    if(filter == "gif") {
+    else if(filter == "gif") {
       return this.gifFilter(post.url);
     }
-    else {
+    else if(filter == "image") {
+      return this.imgFilter(post.url);
+    }
+    else if(filter == "url") {
       return this.urlFilter(post.url);
+    }
+    else if(filter == "body") {
+      return this.bodyFilter(post.selftext);
+    }
+    else {
+      //no filter, just pass it
+      return true;
     }
   },
 

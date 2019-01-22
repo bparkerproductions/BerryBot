@@ -27,23 +27,26 @@ module.exports = {
 
   mapPostGetter(type, posts, recieved) {
     if(type=="title") {
-      this.getTitle(posts, recieved);
+      this.postWrap(this.getTitle, type, posts, recieved);
     }
     else if(type=="body") {
-      this.getBody(posts, recieved);
+      this.postWrap(this.getBody, type, posts, recieved);
     }
     else if(type=="image") {
-      this.getImage(posts, recieved);
+      this.postWrap(this.getImage, type, posts, recieved);
     }
     else if(type=="gif") {
-      this.processFilter(this.getGif, type, posts, recieved);
+      this.postWrap(this.getGif, type, posts, recieved);
+    }
+    else if(type=="url") {
+      this.postWrap(this.getLinkBody, type, posts, recieved);
     }
     else if(type=="linkbody" || type=="music") {
-      this.getLinkBody(posts, recieved);
+      this.postWrap(this.getLinkBody, type, posts, recieved);
     }
   },
 
-  processFilter(func, type, posts, recieved) {
+  postWrap(func, type, posts, recieved) {
     //call correct function with 'this' context
     let post = this.grabPost(posts);
 
@@ -52,8 +55,8 @@ module.exports = {
       func.call(this, post, recieved);
     }
     else {
-      console.log("Didn\'t pass filter.. trying again");
-      this.processFilter(func, type, posts, recieved);
+      console.log("Didn\'t pass filter.. trying again...");
+      this.postWrap(func, type, posts, recieved);
     }
   },
 
@@ -62,14 +65,11 @@ module.exports = {
     return posts.toJSON()[postIndex]; //choose a post by index
   },
 
-  getTitle(posts, recieved) {
-    let title = this.grabPost(posts).title;
-    recieved.channel.send(title);
+  getTitle(post, recieved) {
+    recieved.channel.send(post.title);
   },
 
-  getImage(posts, recieved) {
-    let post = this.grabPost(posts);
-
+  getImage(post, recieved) {
     //set up embed
     embed.setDescription(this.embedDesc(post));
     embed.setImage(post.url);
@@ -92,9 +92,7 @@ module.exports = {
     recieved.channel.send({embed: embed});
   },
 
-  //TODO: make this function for links and another for gifs
-  getLinkBody(posts, recieved) {
-    let post = this.grabPost(posts);
+  getLinkBody(post, recieved) {
     recieved.channel.send(`${post.title}\n${post.url}`);
   },
 
