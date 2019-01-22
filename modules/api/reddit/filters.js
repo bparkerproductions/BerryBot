@@ -4,9 +4,28 @@ module.exports = {
     "streamable", "reddit", "redd.it", "youtu.be", "webm"
   ],
 
-  filterMap: [
-
-  ],
+  filterMap: {
+    "music": {
+      func: "musicFilter",
+      mediaType: "url"
+    },
+    "gif": {
+      func: "gifFilter",
+      mediaType: "url"
+    },
+    "image": {
+      func: "imgFilter",
+      mediaType: "url"
+    },
+    "url": {
+      func: "urlFilter",
+      mediaType: "url"
+    },
+    "titlebody": {
+      func: "bodyFilter",
+      mediaType: "selftext"
+    }
+  },
 
   /* URL filters */
   musicFilter(url) {
@@ -42,20 +61,11 @@ module.exports = {
   },
 
   selectFilter(filter, post) {
-    if(filter == "music") {
-      return this.musicFilter(post.url)
-    }
-    else if(filter == "gif") {
-      return this.gifFilter(post.url);
-    }
-    else if(filter == "image") {
-      return this.imgFilter(post.url);
-    }
-    else if(filter == "url") {
-      return this.urlFilter(post.url);
-    }
-    else if(filter == "titlebody") {
-      return this.bodyFilter(post.selftext);
+    let filterObj = this.filterMap[filter];
+
+    if(filterObj !== undefined) {
+      let media = post[filterObj.mediaType];
+      return this[filterObj.func](media);
     }
     else {
       //no filter, just pass it
