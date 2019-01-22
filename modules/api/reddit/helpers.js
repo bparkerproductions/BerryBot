@@ -6,6 +6,17 @@ const reddit = require('./../../../reddit.js');
 const filters = require('./filters.js');
 
 module.exports = {
+  postMaps: {
+    "body": "getBody",
+    "title": "getTitle",
+    "image": "getImage",
+    "gif": "getGif",
+    "url": "getLinkBody",
+    "titlebody": "getTitleBody",
+    "linkbody": "getLinkBody",
+    "music": "getLinkBody"
+  },
+
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
     let subReddit = arguments[0];
 
@@ -26,26 +37,13 @@ module.exports = {
   },
 
   mapPostGetter(type, posts, recieved) {
-    if(type=="title") {
-      this.postWrap(this.getTitle, type, posts, recieved);
+    let postObj = this.postMaps[type];
+
+    if(postObj !== undefined) {
+      this.postWrap(this[postObj], type, posts, recieved);
     }
-    else if(type=="body") {
-      this.postWrap(this.getBody, type, posts, recieved);
-    }
-    else if(type=="image") {
-      this.postWrap(this.getImage, type, posts, recieved);
-    }
-    else if(type=="gif") {
-      this.postWrap(this.getGif, type, posts, recieved);
-    }
-    else if(type=="url") {
-      this.postWrap(this.getLinkBody, type, posts, recieved);
-    }
-    else if(type=="titlebody") {
-      this.postWrap(this.getTitleBody, type, posts, recieved);
-    }
-    else if(type=="linkbody" || type=="music") {
-      this.postWrap(this.getLinkBody, type, posts, recieved);
+    else {
+      return;
     }
   },
 
@@ -96,14 +94,11 @@ module.exports = {
   },
 
   getTitleBody(post, recieved) {
-    embed.setTitle(post.title);
-    embed.setDescription(post.selftext);
-
-    recieved.channel.send({ embed:embed });
+    recieved.channel.send(`**${post.title}**\n\n${post.selftext}`);
   },
 
   getLinkBody(post, recieved) {
-    recieved.channel.send(`${post.title}\n${post.url}`);
+    recieved.channel.send(`**${post.title}**\n\n${post.url}`);
   },
 
   embedDesc(post) {
