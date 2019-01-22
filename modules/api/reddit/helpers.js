@@ -41,6 +41,9 @@ module.exports = {
     else if(type=="url") {
       this.postWrap(this.getLinkBody, type, posts, recieved);
     }
+    else if(type=="titlebody") {
+      this.postWrap(this.getTitleBody, type, posts, recieved);
+    }
     else if(type=="linkbody" || type=="music") {
       this.postWrap(this.getLinkBody, type, posts, recieved);
     }
@@ -90,6 +93,13 @@ module.exports = {
     embed.setDescription(post.selftext);
 
     recieved.channel.send({embed: embed});
+  },
+
+  getTitleBody(post, recieved) {
+    embed.setTitle(post.title);
+    embed.setDescription(post.selftext);
+
+    recieved.channel.send({ embed:embed });
   },
 
   getLinkBody(post, recieved) {

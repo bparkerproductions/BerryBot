@@ -28,7 +28,7 @@ module.exports = {
       rhelpers.mapTypeOfReddit(arguments, message, ideas, 'title');
     }
     else if(command == "joke" || command == "j") {
-      rhelpers.mapTypeOfReddit(arguments, message, jokes, 'both');
+      rhelpers.mapTypeOfReddit(arguments, message, jokes, 'titlebody');
     }
     else if(command == "misc") {
       rhelpers.mapTypeOfReddit(arguments, message, misc, 'url');

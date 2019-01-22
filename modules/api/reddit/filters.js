@@ -4,6 +4,10 @@ module.exports = {
     "streamable", "reddit", "redd.it", "youtu.be", "webm"
   ],
 
+  filterMap: [
+
+  ],
+
   /* URL filters */
   musicFilter(url) {
     //we don't want self reddit posts to be returned for music
@@ -34,7 +38,7 @@ module.exports = {
 
   /* Text filters */
   bodyFilter(text) {
-    console.log(text.length);
+    return text.length < 2000 && text.length > 15 ? true : false;
   },
 
   selectFilter(filter, post) {
@@ -50,7 +54,7 @@ module.exports = {
     else if(filter == "url") {
       return this.urlFilter(post.url);
     }
-    else if(filter == "body") {
+    else if(filter == "titlebody") {
       return this.bodyFilter(post.selftext);
     }
     else {
