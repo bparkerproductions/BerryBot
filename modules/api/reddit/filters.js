@@ -9,6 +9,10 @@ module.exports = {
     return !url.includes('reddit') && !url.includes("redd.it");
   },
 
+  imgFilter(url) {
+    return true;
+  },
+
   gifExclusion: [
     "youtube", "twitter", "news", "minus", 
     "streamable", "reddit", "redd.it", "youtu.be", "webm"

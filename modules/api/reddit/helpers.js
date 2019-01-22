@@ -3,7 +3,7 @@ const embed = require('discord-embed-maker');
 const Helpers = require('../../helpers/helpers.js');
 const reddits = require('./../../../data/redditsMap.json');
 const reddit = require('./../../../reddit.js');
-const filterHelpers = require('./filters.js');
+const filters = require('./filters.js');
 
 module.exports = {
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
@@ -17,10 +17,9 @@ module.exports = {
     });
   },
 
-
   getHot(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
-    .getHot({limit: 50})
+    .getHot({limit: 100})
     .then( posts => {
       this.mapPostGetter(type, posts, recieved);
     });
@@ -37,15 +36,29 @@ module.exports = {
       this.getImage(posts, recieved);
     }
     else if(type=="gif") {
-      this.getGif(posts, recieved);
+      this.processFilter(this.getGif, type, posts, recieved);
     }
-    else if(type=="linkbody") {
+    else if(type=="linkbody" || type=="music") {
       this.getLinkBody(posts, recieved);
     }
   },
 
+  processFilter(func, type, posts, recieved) {
+    //call correct function with 'this' context
+    let post = this.grabPost(posts);
+
+    //run filter logic
+    if(filters.selectFilter(type, post)) {
+      func.call(this, post, recieved);
+    }
+    else {
+      console.log("Didn\'t pass filter.. trying again");
+      this.processFilter(func, type, posts, recieved);
+    }
+  },
+
   grabPost(posts) {
-    let postIndex = Helpers.generateRandom(50);
+    let postIndex = Helpers.generateRandom(100);
     return posts.toJSON()[postIndex]; //choose a post by index
   },
 
@@ -66,9 +79,9 @@ module.exports = {
     recieved.channel.send({embed: embed});
   },
 
-  getGif(posts, recieved) {
-    let post = this.grabPost(posts);
+  getGif(post, recieved) {
     recieved.channel.send(post.url);
+    return post.url;
   },
 
   getBody(posts, recieved) {
