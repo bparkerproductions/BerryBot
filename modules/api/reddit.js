@@ -25,7 +25,7 @@ module.exports = {
     let image = reddits.image;
 
     if(command == "idea" || command == "i") {
-      rhelpers.mapTypeOfReddit(arguments, message, ideas);
+      rhelpers.mapTypeOfReddit(arguments, message, ideas, 'title');
     }
     else if(command == "joke" || command == "j") {
       rhelpers.mapTypeOfReddit(arguments, message, jokes, 'both');

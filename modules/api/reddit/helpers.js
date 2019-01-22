@@ -6,30 +6,13 @@ const reddit = require('./../../../reddit.js');
 const filterHelpers = require('./filters.js');
 
 module.exports = {
-  mapTypeOfReddit(arguments, recieved, typeObj, type=false) {
+  mapTypeOfReddit(arguments, recieved, typeObj, type) {
     let subReddit = arguments[0];
 
     typeObj.forEach((item) => {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab post
-        if(!type) {
-          this.getHot(arguments, recieved, item.subreddit, 'title');
-        }
-        if(type=="both") {
-          this.getHot(arguments, recieved, item.subreddit, 'body')
-        }
-        if(type=="music") {
-          this.getHot(arguments, recieved, item.subreddit, 'linkbody');
-        }
-        if(type=="url") {
-          this.getHot(arguments, recieved, item.subreddit, 'linkbody');
-        }
-        if(type=="gif") {
-          this.getHot(arguments, recieved, item.subreddit, 'gif');
-        }
-        if(type=="image") {
-          this.getHot(arguments, recieved, item.subreddit, 'image');
-        }
+        this.getHot(arguments, recieved, item.subreddit, type);
       }
     });
   },
@@ -39,22 +22,26 @@ module.exports = {
     reddit.getSubreddit(subreddit)
     .getHot({limit: 50})
     .then( posts => {
-      if(type=="title") {
-        this.getTitle(posts, recieved);
-      }
-      else if(type=="body") {
-        this.getBody(posts, recieved);
-      }
-      else if(type=="image") {
-        this.getImage(posts, recieved);
-      }
-      else if(type=="gif") {
-        this.getGif(posts, recieved);
-      }
-      else if(type=="linkbody") {
-        this.getLinkBody(posts, recieved);
-      }
+      this.mapPostGetter(type, posts, recieved);
     });
+  },
+
+  mapPostGetter(type, posts, recieved) {
+    if(type=="title") {
+      this.getTitle(posts, recieved);
+    }
+    else if(type=="body") {
+      this.getBody(posts, recieved);
+    }
+    else if(type=="image") {
+      this.getImage(posts, recieved);
+    }
+    else if(type=="gif") {
+      this.getGif(posts, recieved);
+    }
+    else if(type=="linkbody") {
+      this.getLinkBody(posts, recieved);
+    }
   },
 
   grabPost(posts) {
