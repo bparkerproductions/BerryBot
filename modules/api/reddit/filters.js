@@ -60,21 +60,34 @@ module.exports = {
     return text.length < 2000 && text.length > 15 ? true : false;
   },
 
+  /* Specific Module & Misc Filters */
+  animeFilter(url) {
+    return this.gifFilter(url) &&
+           !url.includes("akira.tits-are");
+  },
+
+  postGlobal(obj) {
+    //log info
+    console.log(`\nStats: \n---\nUpvotes: ${obj.ups}\nNSFW: ${obj.over_18}\n`);
+
+    return !obj.over_18 && obj.ups > 50;
+  },
+
   selectFilter(filter, post) {
     let filterObj = this.filterMap[filter];
 
     if(filterObj !== undefined) {
       let media = post[filterObj.mediaType];
-      return this[filterObj.func](media);
+      let postFilter = this[filterObj.func](media);
+      let globalFilter = this.postGlobal(post);
+
+      //determine if filter passes
+      let passed =  postFilter && globalFilter ? true : false;
+      return passed;
     }
     else {
       //no filter, just pass it
       return true;
     }
-  },
-
-  animeFilter(url) {
-    return this.gifFilter(url) &&
-           !url.includes("akira.tits-are");
-  },
+  }
 }
