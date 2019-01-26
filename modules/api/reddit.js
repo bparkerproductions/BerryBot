@@ -3,7 +3,7 @@ const reddits = require('./../../data/redditsMap.json');
 const reddit = require('./../../reddit.js');
 
 //modules
-const rhelpers = require("./reddit/helpers.js");
+const rhelpers = require("./reddit/helpers/helpers.js");
 const Generator = require("./reddit/generator.js");
 const Gifs = require("./reddit/gif.js");
 const Questions = require("./reddit/question.js");
@@ -15,7 +15,6 @@ module.exports = {
     //init other modules
     Generator.init(command, message, arguments);
     Gifs.init(command, message, arguments);
-    Questions.init(command, message, arguments);
     Anime.init(command, message, arguments);
 
     let ideas = reddits.idea;
@@ -23,6 +22,8 @@ module.exports = {
     let misc = reddits.misc;
     let music = reddits.music;
     let image = reddits.image;
+    let video = reddits.video;
+    let question = reddits.question;
 
     if(command == "idea" || command == "i") {
       rhelpers.mapTypeOfReddit(arguments, message, ideas, 'title');
@@ -38,6 +39,12 @@ module.exports = {
     }
     else if(command == "image" || command == "img" || command == "pic") {
       rhelpers.mapTypeOfReddit(arguments, message, image, 'image');
+    }
+    else if(command == "video" || command == "vid") {
+      rhelpers.mapTypeOfReddit(arguments, message, video, 'url');
+    }
+    else if(command == "question" || command == "q") {
+      rhelpers.mapTypeOfReddit(arguments, message, question, 'question');
     }
   }
 }

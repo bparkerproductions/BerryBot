@@ -24,6 +24,10 @@ module.exports = {
     "titlebody": {
       func: "bodyFilter",
       mediaType: "selftext"
+    },
+    "question": {
+      func: "questionFilter",
+      mediaType: "title"
     }
   },
 
@@ -35,7 +39,7 @@ module.exports = {
   },
 
   urlFilter(url) {
-    return !url.includes('reddit') && !url.includes("redd.it");
+    return !url.includes('reddit');
   },
 
   imgFilter(url) {
@@ -58,6 +62,12 @@ module.exports = {
   /* Text filters */
   bodyFilter(text) {
     return text.length < 2000 && text.length > 15 ? true : false;
+  },
+
+  questionFilter(post) {
+    //if the post doesn't include reddit and has a question mark
+    let title = post.toLowerCase();
+    return !title.includes('reddit') && title.includes('?');
   },
 
   /* Specific Module & Misc Filters */

@@ -2,7 +2,7 @@ const embed = require('discord-embed-maker');
 
 const reddit = require('./../../../reddit.js');
 const Helpers = require('../../helpers/helpers.js');
-const rhelpers = require('./helpers.js');
+const rhelpers = require('./helpers/helpers.js');
 const filters = require('./filters.js');
 
 module.exports = {

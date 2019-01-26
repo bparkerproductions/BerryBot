@@ -1,7 +1,7 @@
 /*
  * Module for general generation from reddit API
  */
-const rhelpers = require('./helpers.js');
+const rhelpers = require('./helpers/helpers.js');
 const reddits = require('./../../../data/redditsMap.json');
 
 module.exports = {

@@ -1,9 +1,9 @@
 const embed = require('discord-embed-maker');
 
-const Helpers = require('../../helpers/helpers.js');
-const reddits = require('./../../../data/redditsMap.json');
-const reddit = require('./../../../reddit.js');
-const filters = require('./filters.js');
+const Helpers = require('../../../helpers/helpers.js');
+const reddits = require('./../../../../data/redditsMap.json');
+const reddit = require('./../../../../reddit.js');
+const filters = require('./../filters.js');
 
 module.exports = {
   postMaps: {
@@ -14,7 +14,8 @@ module.exports = {
     "url": "getLinkBody",
     "titlebody": "getTitleBody",
     "linkbody": "getLinkBody",
-    "music": "getLinkBody"
+    "music": "getLinkBody",
+    "question": "getTitle"
   },
 
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
@@ -30,7 +31,7 @@ module.exports = {
 
   getHot(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
-    .getHot({limit: 100})
+    .getHot({limit: 250})
     .then( posts => {
       this.mapPostGetter(type, posts, recieved);
     });

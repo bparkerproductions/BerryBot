@@ -61,6 +61,10 @@
     {
       "arg": "fatcat",
       "subreddit": "frugal_jerk"
+    },
+    {
+      "arg": "hax",
+      "subreddit": "MasterHacker"
     }
   ],
   "jokes": [
@@ -185,6 +189,12 @@
     {
       "arg": "wtf",
       "subreddit": "wtf"
+    }
+  ],
+  "video": [
+    {
+      "arg": "random",
+      "subreddit": "Videos"
     }
   ]
 }
