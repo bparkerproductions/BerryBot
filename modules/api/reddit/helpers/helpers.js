@@ -33,7 +33,7 @@ module.exports = {
 
   getHot(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
-    .getTop({
+    .getHot({
       limit: this.postLimit,
       time: 'week'
     })

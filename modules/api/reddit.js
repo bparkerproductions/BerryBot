@@ -16,10 +16,10 @@ module.exports = {
     Gifs.init(command, message, arguments);
     Anime.init(command, message, arguments);
 
-    let { ideas, jokes, misc, music, image, video, question } = reddits;
+    let { idea, jokes, misc, music, image, video, question } = reddits;
 
     if(command == "idea" || command == "i") {
-      rhelpers.mapTypeOfReddit(arguments, message, ideas, 'title');
+      rhelpers.mapTypeOfReddit(arguments, message, idea, 'title');
     }
     else if(command == "joke" || command == "j") {
       rhelpers.mapTypeOfReddit(arguments, message, jokes, 'titlebody');
