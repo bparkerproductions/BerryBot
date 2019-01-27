@@ -80,7 +80,7 @@ module.exports = {
     //log info
     console.log(`\nStats: \n---\nUpvotes: ${obj.ups}\nNSFW: ${obj.over_18}\n`);
 
-    return obj.ups > 30;
+    return obj.ups > 20;
   },
 
   selectFilter(filter, post) {

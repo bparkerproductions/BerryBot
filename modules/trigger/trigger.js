@@ -10,7 +10,7 @@ module.exports = {
   },
 
   default: 5000,
-  limit: 2000,
+  limit: 1000,
 
   activateTrigger(arguments, recieved) {
     let type = arguments[0];
@@ -39,6 +39,7 @@ module.exports = {
 
     if(interval !== 'stop') {
       timers.intervals[obj] = setInterval( () => {
+        console.log(`${obj} interval passed. Current timer: ${interval}`);
         recieved.channel.send(func());
       }, interval);
     }
@@ -46,11 +47,18 @@ module.exports = {
 
   messageTrigger(interval, recieved, arguments) {
     let message = arguments[2];
+    let channel = recieved.channel.name;
     let sentMessage = () => {
       return helpers.getSentence(arguments, 2)
     };
 
-    this.intervalSet('message', sentMessage, recieved, interval);
+    if( channel == "❥berry-bot" || 
+      channel == "♡epic-chat") {
+      this.intervalSet('message', sentMessage, recieved, interval);
+    }
+    else {
+      recieved.channel.send("The message trigger cannot be set in this channel");
+    }
   },
 
   musicTrigger(interval, recieved) {

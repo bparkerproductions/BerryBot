@@ -18,6 +18,8 @@ module.exports = {
     "question": "getTitle"
   },
 
+  postLimit:150,
+
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
     let subReddit = arguments[0];
 
@@ -31,7 +33,10 @@ module.exports = {
 
   getHot(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
-    .getHot({limit: 250})
+    .getTop({
+      limit: this.postLimit,
+      time: 'week'
+    })
     .then( posts => {
       this.mapPostGetter(type, posts, recieved);
     });
@@ -63,7 +68,7 @@ module.exports = {
   },
 
   grabPost(posts) {
-    let postIndex = Helpers.generateRandom(100);
+    let postIndex = Helpers.generateRandom(this.postLimit);
     return posts.toJSON()[postIndex]; //choose a post by index
   },
 
