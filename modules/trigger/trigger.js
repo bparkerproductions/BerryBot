@@ -17,7 +17,7 @@ module.exports = {
     let interval = this.getInterval(arguments[1], recieved);
 
     if(type == "music") {
-      music.musicTrigger(interval, recieved);
+      this.musicTrigger(interval, recieved);
     }
     if(type == "-m") {
       this.messageTrigger(interval, recieved, arguments);
@@ -34,18 +34,30 @@ module.exports = {
     return arg ? arg : this.default;
   },
 
+  intervalSet(obj, func, recieved, interval) {
+    clearInterval(timers.intervals[obj]);
+
+    if(interval !== 'stop') {
+      timers.intervals[obj] = setInterval( () => {
+        recieved.channel.send(func());
+      }, interval);
+    }
+  },
+
   messageTrigger(interval, recieved, arguments) {
     let message = arguments[2];
     let sentMessage = () => {
       return helpers.getSentence(arguments, 2)
     };
 
-    clearInterval(timers.intervals.message);
+    this.intervalSet('message', sentMessage, recieved, interval);
+  },
 
-    if(interval !== 'stop') {
-      timers.intervals.message = setInterval( () => {
-        recieved.channel.send(sentMessage());
-      }, interval);
+  musicTrigger(interval, recieved) {
+    let sentMessage = () => {
+      return `test. Current interval: ${interval}`;
     }
+    
+    this.intervalSet('music', sentMessage, recieved, interval);
   }
 }
