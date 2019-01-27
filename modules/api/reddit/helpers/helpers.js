@@ -54,7 +54,7 @@ module.exports = {
 
     //run filter logic
     if(filters.selectFilter(type, post)) {
-      func.call(this, post, recieved);
+      func.call(this, post, recieved, type);
     }
     else {
       console.log("Didn\'t pass filter.. trying again...");
@@ -67,7 +67,7 @@ module.exports = {
     return posts.toJSON()[postIndex]; //choose a post by index
   },
 
-  getTitle(post, recieved) {
+  getTitle(post, recieved, type) {
     recieved.channel.send(post.title);
   },
 

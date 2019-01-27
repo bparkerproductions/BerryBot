@@ -80,7 +80,7 @@ module.exports = {
     //log info
     console.log(`\nStats: \n---\nUpvotes: ${obj.ups}\nNSFW: ${obj.over_18}\n`);
 
-    return !obj.over_18 && obj.ups > 50;
+    return obj.ups > 30;
   },
 
   selectFilter(filter, post) {
@@ -92,8 +92,7 @@ module.exports = {
       let globalFilter = this.postGlobal(post);
 
       //determine if filter passes
-      let passed =  postFilter && globalFilter ? true : false;
-      return passed;
+      return postFilter && globalFilter ? true : false;
     }
     else {
       //no filter, just pass it

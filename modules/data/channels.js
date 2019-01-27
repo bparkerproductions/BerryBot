@@ -22,12 +22,5 @@ module.exports = {
 
     let text = `${channelName} has **${totalChannels}** total channels.\n**${voiceChannels}** are voice channels and **${textChannels}** are text.`;
     received.channel.send(text);
-  },
-
-  amountMessages(arguments, received, client) {
-    console.log(received.channel.messages);
-    // client.fetchMessages()
-    // .then(messages => console.log(messages.size))
-    // .catch(console.error);
   }
 }

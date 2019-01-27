@@ -6,7 +6,6 @@ const reddit = require('./../../reddit.js');
 const rhelpers = require("./reddit/helpers/helpers.js");
 const Generator = require("./reddit/generator.js");
 const Gifs = require("./reddit/gif.js");
-const Questions = require("./reddit/question.js");
 const Anime = require("./reddit/anime.js");
 
 
@@ -17,13 +16,7 @@ module.exports = {
     Gifs.init(command, message, arguments);
     Anime.init(command, message, arguments);
 
-    let ideas = reddits.idea;
-    let jokes = reddits.jokes;
-    let misc = reddits.misc;
-    let music = reddits.music;
-    let image = reddits.image;
-    let video = reddits.video;
-    let question = reddits.question;
+    let { ideas, jokes, misc, music, image, video, question } = reddits;
 
     if(command == "idea" || command == "i") {
       rhelpers.mapTypeOfReddit(arguments, message, ideas, 'title');
