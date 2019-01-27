@@ -6,5 +6,8 @@
   },
   "automod": {
     "charlimit": "10"
+  },
+  "triggers": {
+    
   }
 }
