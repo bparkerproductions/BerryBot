@@ -1,5 +1,6 @@
 module.exports = {
   intervals: {
-    "music": ""
+    "music": "",
+    "message": ""
   }
 }
