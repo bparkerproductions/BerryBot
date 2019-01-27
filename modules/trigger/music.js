@@ -1,13 +1,13 @@
-let triggers = require("./trigger.js");
+let timers = require("./intervals.js");
 
 module.exports = {
-  currentInterval: '',
-
   musicTrigger(interval, recieved) {
-    clearInterval(this.currentInterval);
+    clearInterval(timers.intervals.music);
 
-    this.currentInterval = setInterval( () => {
-      recieved.channel.send(`test. Current interval: ${interval}`);
-    }, interval);
+    if(interval !== 'stop') {
+      timers.intervals.music = setInterval( () => {
+        recieved.channel.send(`test. Current interval: ${interval}`);
+      }, interval);
+    }
   }
 }
