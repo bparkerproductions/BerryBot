@@ -18,7 +18,7 @@ module.exports = {
     "question": "getTitle"
   },
 
-  postLimit:150,
+  postLimit: 150,
 
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
     let subReddit = arguments[0];

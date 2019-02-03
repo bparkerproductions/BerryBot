@@ -59,7 +59,7 @@ function mapCommands(command, message, arguments) {
   BotConfig.init(command, message, arguments);
   Help.init(command, message, arguments);
   Moderation.init(command, message, arguments);
-  Trigger.init(command, message, arguments);
+  // Trigger.init(command, message, arguments);
 }
 
 // Get your bot's secret token from:

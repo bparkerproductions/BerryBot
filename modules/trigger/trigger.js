@@ -10,7 +10,7 @@ module.exports = {
   },
 
   default: 5000,
-  limit: 1000,
+  limit: 2000,
 
   activateTrigger(arguments, recieved) {
     let type = arguments[0];
