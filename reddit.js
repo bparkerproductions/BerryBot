@@ -1,5 +1,5 @@
 const snoowrap = require("snoowrap");
-const auth = require("./auth.json");
+const auth = require("./auth.js");
 
 //init reddit instance
 const reddit = new snoowrap({

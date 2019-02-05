@@ -17,6 +17,10 @@ module.exports = {
       "verb": "hugged",
       "search": "hugging"
     },
+    "tickle": {
+      "verb": "tickled",
+      "search": "tickle"
+    },
     "cuddle": {
       "verb": "cuddled",
       "search": "cuddling"
@@ -59,15 +63,17 @@ module.exports = {
     //get random gif
     let index = Helpers.generateRandom(result.length);
     let media = result.toJSON()[index].url;
+    //let isGif = filters.isGif(media);
 
     embed.setDescription(message);
-    embed.setImage(media);
     embed.setColor("#ffcdc1");
     embed.setURL(media);
 
     //send message
     if(filters.animeFilter(media)) {
-      recieved.channel.send({embed: embed});
+      recieved.channel.send({embed: embed}).then(() => {
+        recieved.channel.send(media);
+      });
     }
     else {
       this.searchGif(arguments, recieved, command, "animeGifs");

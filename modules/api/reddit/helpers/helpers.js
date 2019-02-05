@@ -26,12 +26,12 @@ module.exports = {
     typeObj.forEach((item) => {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab post
-        this.getHot(arguments, recieved, item.subreddit, type);
+        this.getTop(arguments, recieved, item.subreddit, type);
       }
     });
   },
 
-  getHot(arguments, recieved, subreddit, type) {
+  getTop(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
     .getHot({
       limit: this.postLimit,
@@ -68,7 +68,8 @@ module.exports = {
   },
 
   grabPost(posts) {
-    let postIndex = Helpers.generateRandom(this.postLimit);
+    console.log(posts.length);
+    let postIndex = Helpers.generateRandom(posts.length);
     return posts.toJSON()[postIndex]; //choose a post by index
   },
 

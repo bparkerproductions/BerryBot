@@ -10,6 +10,7 @@
     "discord-embed-maker": "^3.0.8",
     "discord.io": "^2.5.3",
     "discord.js": "^11.4.2",
+    "dotenv": "^6.2.0",
     "nodemon": "^1.18.8",
     "snoowrap": "^1.15.2",
     "sqlite3": "^4.0.6",

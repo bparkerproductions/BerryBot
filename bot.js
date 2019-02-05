@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const secretToken = require('./auth.json').token;
+const secretToken = require('./auth.js').token;
 const channels = require('./data/channels');
 const config = require('./data/config.json');
 

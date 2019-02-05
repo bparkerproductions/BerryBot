@@ -59,6 +59,10 @@ module.exports = {
     return true;
   },
 
+  isGif(media) {
+    return media.includes("gif") || media.includes("gyfcat");
+  },
+
   /* Text filters */
   bodyFilter(text) {
     return text.length < 2000 && text.length > 15 ? true : false;
