@@ -18,7 +18,7 @@ module.exports = {
     "question": "getTitle"
   },
 
-  postLimit: 150,
+  postLimit: 200,
 
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
     let subReddit = arguments[0];
@@ -31,11 +31,18 @@ module.exports = {
     });
   },
 
+  selectTime() {
+    let times = ['week','month','year','all'];
+    let selected = times[Helpers.generateRandom(times.length)];
+    console.log(`Time selected: ${selected}`);
+    return selected;
+  },
+
   getTop(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
-    .getHot({
+    .getTop({
       limit: this.postLimit,
-      time: 'week'
+      time: this.selectTime()
     })
     .then( posts => {
       this.mapPostGetter(type, posts, recieved);

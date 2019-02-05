@@ -1,0 +1,34 @@
+{
+  "hug": {
+    "verb": "hugged",
+    "search": "hug"
+  },
+  "tickle": {
+    "verb": "tickled",
+    "search": "tickle"
+  },
+  "scream": {
+    "verb": "screamed at",
+    "search": "screaming"
+  },
+  "cuddle": {
+    "verb": "cuddled",
+    "search": "cuddle"
+  },
+  "lick": {
+    "verb": "licked",
+    "search": "lick"
+  },
+  "neko": {
+    "verb": "neko niiiid",
+    "search": "nya"
+  },
+  "kiss": {
+    "verb": "kissed",
+    "search": "kiss"
+  },
+  "pat": {
+    "verb": "patted",
+    "search": "headpat"
+  }
+}

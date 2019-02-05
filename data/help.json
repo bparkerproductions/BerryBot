@@ -22,7 +22,7 @@
     },
     {
       "name": "actions",
-      "command": "<action> <user>",
+      "command": "! <action> <user>",
       "commands": {
         "list": ["hug", "kiss", "cuddle", "pat", "lick"],
         "verb": "actions"

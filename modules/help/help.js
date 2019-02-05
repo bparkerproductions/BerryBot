@@ -71,13 +71,20 @@ module.exports = {
     let helpCommand = arguments[0];
     let redditObj = reddits[helpCommand];
 
+    //if no arg was passed, list all help and return
     if(helpCommand == "all" || helpCommand == undefined) {
       this.rhelpAll(arguments, recieved);
       return;
     }
 
-    let list = this.listHelp(redditObj, helpCommand);
-    recieved.channel.send(list);
+    //display help if it exists
+    if(reddits[helpCommand] !== undefined) {
+      let list = this.listHelp(redditObj, helpCommand);
+      recieved.channel.send(list);
+    }
+    else {
+      recieved.channel.send(`Your command \`${helpCommand}\` was not found`);
+    }
   },
 
   rhelpAll(arguments, recieved) {
