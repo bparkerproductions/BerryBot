@@ -91,8 +91,7 @@ module.exports = {
     let textPrompt = "**Listing all rhelp commands:** \n\n";
 
     Object.entries(reddits).forEach( item => {
-      let name = item[0];
-      let items = item[1];
+      let name = item[0], items = item[1];
       let list = this.listHelp(items, name);
       textPrompt+=`${list}\n\n `;
     });

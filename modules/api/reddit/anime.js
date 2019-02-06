@@ -4,22 +4,18 @@ const reddit = require('./../../../reddit.js');
 const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require('./helpers/helpers.js');
 const filters = require('./filters.js');
-const animeMaps = require("./data/animeMaps.json");
 
 module.exports = {
   init(command, message, arguments) {
     if(command == "!") {
-      if(this.actionMaps[arguments[0]] !== undefined) {
-         this.searchGif(arguments, message, command, "awwnime");
-      }
+      //make search with predefined action map
+       this.searchGif(arguments, message, arguments[0], "awwnime");
     }
   },
 
-  actionMaps: animeMaps,
-
   searchGif(arguments, recieved, command, subreddit) {
     reddit.search({
-      query: arguments[0],
+      query: command,
       subreddit: subreddit,
       sort: 'top'
     }).then( result => {
@@ -32,11 +28,15 @@ module.exports = {
     let reciever = user ? user : "imaginary friend";
     //console.log(recieved.mentions.users.Collection);
     let giver = recieved.author.username;
-    let verb = this.actionMaps[query].verb; // map command to verb
-    return `${reciever} has been ${verb} by *${giver}*`;
+    return `${reciever} has been given a ${command} by ${giver}`;
   },
 
   notifyUser(result, arguments, recieved, command) {
+    if(!result.length) {
+      recieved.channel.send(`Sorry, ${command} doesn't exist!`);
+      return;
+    }
+
     let message = this.generateMessage(arguments, recieved, command);
 
     //get random gif
@@ -45,7 +45,7 @@ module.exports = {
 
     embed.setDescription(message);
     embed.setColor("#ffcdc1");
-    embed.setURL(media);
+    embed.setImage("");
 
     //send message, then send media
     if(filters.animeFilter(media)) {
