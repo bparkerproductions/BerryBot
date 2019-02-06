@@ -1,35 +1,8 @@
-module.exports = {
-  gifExclusion: [
-    "youtube", "twitter", "news", "minus", 
-    "streamable", "reddit", "redd.it", "youtu.be", "webm"
-  ],
+const filt = require("./data/filter.json");
 
-  filterMap: {
-    "music": {
-      func: "musicFilter",
-      mediaType: "url"
-    },
-    "gif": {
-      func: "gifFilter",
-      mediaType: "url"
-    },
-    "image": {
-      func: "imgFilter",
-      mediaType: "url"
-    },
-    "url": {
-      func: "urlFilter",
-      mediaType: "url"
-    },
-    "titlebody": {
-      func: "bodyFilter",
-      mediaType: "selftext"
-    },
-    "question": {
-      func: "questionFilter",
-      mediaType: "title"
-    }
-  },
+module.exports = {
+  gifExclusion: filt.gifExclusion,
+  filterMap: filt.filterMap,
 
   /* URL filters */
   musicFilter(url) {

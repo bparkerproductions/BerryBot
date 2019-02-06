@@ -1,0 +1,33 @@
+{
+  "gifExclusion": [
+    "youtube", "twitter", "news", "minus", 
+    "streamable", "reddit", "redd.it", "youtu.be", "webm"
+  ],
+
+  "filterMap": {
+    "music": {
+      "func": "musicFilter",
+      "mediaType": "url"
+    },
+    "gif": {
+      "func": "gifFilter",
+      "mediaType": "url"
+    },
+    "image": {
+      "func": "imgFilter",
+      "mediaType": "url"
+    },
+    "url": {
+      "func": "urlFilter",
+      "mediaType": "url"
+    },
+    "titlebody": {
+      "func": "bodyFilter",
+      "mediaType": "selftext"
+    },
+    "question": {
+      "func": "questionFilter",
+      "mediaType": "title"
+    }
+  }
+}
