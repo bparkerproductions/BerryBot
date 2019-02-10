@@ -1,5 +1,7 @@
 const embed = require('discord-embed-maker');
+const fs = require('fs');
 
+const recent = require('./data/recent.json');
 const reddit = require('./../../../reddit.js');
 const Helpers = require('../../helpers/helpers.js');
 const rhelpers = require('./helpers/helpers.js');
@@ -18,8 +20,10 @@ module.exports = {
   },
 
   searchGif(arguments, recieved, command, subreddit) {
-    search.gif(command, subreddit).then( result => {
-       this.notifyUser(result, arguments, recieved, command);
+    search.media(command, subreddit).then( result => {
+      let index = Helpers.generateRandom(result.length);
+      let media = result.toJSON()[index].url;
+      this.notifyUser(result, arguments, recieved, command, media);
     })
   },
 
@@ -35,7 +39,7 @@ module.exports = {
     recieved.channel.send(`This image will now be excluded from search results`);
   },
 
-  notifyUser(result, arguments, recieved, command) {
+  notifyUser(result, arguments, recieved, command, media) {
     if(!result.length) {
       recieved.channel.send(`Sorry, ${command} doesn't exist!`);
       return;
@@ -43,14 +47,9 @@ module.exports = {
 
     let message = this.generateMessage(arguments, recieved, command);
 
-    //get random gif
-    let index = Helpers.generateRandom(result.length);
-    let media = result.toJSON()[index].url;
-    console.log(result.toJSON()[index]);
-
     embed.setDescription(message);
     embed.setColor("#ffcdc1");
-    embed.setImage(media);
+    embed.setImage("");
 
     //send message, then send media
     if(filters.animeFilter(media)) {
@@ -61,5 +60,12 @@ module.exports = {
     else {
       this.searchGif(arguments, recieved, command, "animeGifs");
     }
+  },
+
+  storeRecent(media) {
+    recent.anime = media;
+    let file = JSON.stringify(recent, null, '\t');
+
+    fs.writeFileSync('modules/api/reddit/data/recent.json', file);
   }
 }

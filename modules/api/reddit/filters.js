@@ -16,7 +16,9 @@ module.exports = {
   },
 
   imgFilter(url) {
-    return !url.includes('gif') && !url.includes('webm');
+    return !url.includes('gif') && 
+           !url.includes('webm') &&
+           !url.includes('reddit');
   },
 
   gifFilter(url) {

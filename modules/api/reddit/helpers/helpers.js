@@ -1,6 +1,7 @@
 const embed = require('discord-embed-maker');
 
 const Helpers = require('../../../helpers/helpers.js');
+const search = require("./search.js");
 const reddits = require('./../../../../data/redditsMap.json');
 const reddit = require('./../../../../reddit.js');
 const filters = require('./../filters.js');
@@ -19,16 +20,28 @@ module.exports = {
   },
 
   postLimit: 200,
+  filterCount: 0,
+  filterLimit: 20,
 
   mapTypeOfReddit(arguments, recieved, typeObj, type) {
     let subReddit = arguments[0];
+    this.filterCount = 0;
 
     typeObj.forEach((item) => {
       if(item.arg == subReddit) {
         //if the arg matches a config option, grab post
-        this.getTop(arguments, recieved, item.subreddit, type);
+        this.chooseFetchType(arguments, recieved, item.subreddit, type);
       }
     });
+  },
+
+  chooseFetchType(arguments, recieved, subreddit, type) {
+    if(arguments[1] == undefined) {
+      this.getTop(arguments, recieved, subreddit, type);
+    }
+    else {
+      this.getResult(arguments, recieved, subreddit, type);
+    }
   },
 
   selectTime() {
@@ -46,6 +59,18 @@ module.exports = {
     })
     .then( posts => {
       this.mapPostGetter(type, posts, recieved);
+    });
+  },
+
+  getResult(arguments, recieved, subreddit, type) {
+    let query = Helpers.getSentence(arguments, 1).replace(/\"/g, "");
+    let searchResult = search.media(arguments[1], subreddit);
+
+    searchResult.then( result => {
+      if(!result.length) {
+        recieved.channel.send(`Sorry, ${query} didn't bring up any results`);
+      }
+      this.mapPostGetter(type, result, recieved);
     });
   },
 
@@ -70,7 +95,14 @@ module.exports = {
     }
     else {
       console.log("Didn\'t pass filter.. trying again...");
-      this.postWrap(func, type, posts, recieved);
+      this.filterCount++;
+
+      if(this.filterCount < this.filterLimit) {
+        this.postWrap(func, type, posts, recieved);
+      }
+      else {
+        recieved.channel.send('Filters were not passed.. no result sorry');
+      }
     }
   },
 
