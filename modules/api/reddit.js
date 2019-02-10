@@ -1,12 +1,13 @@
-const Helpers = require('../helpers/helpers.js');
+const Helpers = require('../helpers/helpers');
 const reddits = require('./../../data/redditsMap.json');
-const reddit = require('./../../reddit.js');
+const reddit = require('./../../reddit');
 
 //modules
-const rhelpers = require("./reddit/helpers/helpers.js");
-const Generator = require("./reddit/generator.js");
-const Gifs = require("./reddit/gif.js");
-const Anime = require("./reddit/anime.js");
+const Anime = require("./reddit/anime");
+const answer = require("./reddit/answer");
+const Generator = require("./reddit/generator");
+const Gifs = require("./reddit/gif");
+const rhelpers = require("./reddit/helpers/helpers");
 
 
 module.exports = {
@@ -38,6 +39,9 @@ module.exports = {
     }
     else if(command == "question" || command == "q") {
       rhelpers.mapTypeOfReddit(arguments, message, question, 'question');
+    }
+    else if(command == "ask") {
+      answer.ask(arguments, message);
     }
   }
 }

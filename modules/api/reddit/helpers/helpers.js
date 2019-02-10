@@ -107,7 +107,6 @@ module.exports = {
   },
 
   grabPost(posts) {
-    console.log(posts.length);
     let postIndex = Helpers.generateRandom(posts.length);
     return posts.toJSON()[postIndex]; //choose a post by index
   },

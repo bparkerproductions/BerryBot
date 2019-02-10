@@ -4,6 +4,8 @@
     "streamable", "reddit", "redd.it", "youtu.be", "webm"
   ],
 
+  "imgExclusion": ["gif", "webm", "reddit", "mov", "mp4"],
+
   "filterMap": {
     "music": {
       "func": "musicFilter",

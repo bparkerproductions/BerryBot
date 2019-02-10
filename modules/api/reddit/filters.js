@@ -3,12 +3,13 @@ const filt = require("./data/filter.json");
 module.exports = {
   gifExclusion: filt.gifExclusion,
   filterMap: filt.filterMap,
+  imgExclusion: filt.imgExclusion,
 
   /* URL filters */
   musicFilter(url) {
     //we don't want self reddit posts to be returned for music
     return url.includes('youtube.com') || 
-           url.includes('spotify');
+           url.includes('spotify.');
   },
 
   urlFilter(url) {
@@ -16,22 +17,11 @@ module.exports = {
   },
 
   imgFilter(url) {
-    return !url.includes('gif') && 
-           !url.includes('webm') &&
-           !url.includes('reddit');
+    return this.cycleFilter(this.imgExclusion, url);
   },
 
   gifFilter(url) {
-    let arr = this.gifExclusion;
-
-    for(let i=0; i<arr.length; i++) {
-      if(url.includes(arr[i])) {
-        return false; //it includes a filtered out word, don't pass
-      }
-    };
-
-    //filter passed, return
-    return true;
+    return this.cycleFilter(this.gifExclusion, url);
   },
 
   isGif(media) {
@@ -60,6 +50,17 @@ module.exports = {
     console.log(`\nStats: \n---\nUpvotes: ${obj.ups}\nNSFW: ${obj.over_18}\n`);
 
     return obj.ups > 10;
+  },
+
+  cycleFilter(arr, url) {
+    for(let i=0; i<arr.length; i++) {
+      if(url.includes(arr[i])) {
+        return false; //it includes a filtered out word, don't pass
+      }
+    };
+
+    //filter passed, return
+    return true;
   },
 
   selectFilter(filter, post) {
