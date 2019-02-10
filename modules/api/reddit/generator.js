@@ -9,7 +9,7 @@ module.exports = {
     let copypasta = reddits.pasta;
 
     if(command == "pasta" || command == "p") {
-      rhelpers.mapTypeOfReddit(arguments, message, copypasta, 'titlebody');  
+      rhelpers.mapTypeOfReddit(arguments, message, copypasta, 'body');  
     }
   },
 }

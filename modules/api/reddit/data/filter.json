@@ -27,6 +27,10 @@
       "func": "bodyFilter",
       "mediaType": "selftext"
     },
+    "body": {
+      "func": "bodyFilter",
+      "mediaType": "selftext"
+    },
     "question": {
       "func": "questionFilter",
       "mediaType": "title"

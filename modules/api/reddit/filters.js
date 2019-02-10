@@ -30,7 +30,9 @@ module.exports = {
 
   /* Text filters */
   bodyFilter(text) {
-    return text.length < 2000 && text.length > 15 ? true : false;
+    return text.length < 2000 && 
+    text.length > 15 ? true : false && 
+    url.includes('reddit');
   },
 
   questionFilter(post) {

@@ -23,10 +23,6 @@
     {
       "arg": "women",
       "subreddit": "AskWomen"
-    },
-    {
-      "arg": "ouija",
-      "subreddit": "AskOuija"
     }
   ],
   "idea": [
@@ -47,6 +43,10 @@
     {
       "arg": "random",
       "subreddit": "CopyPasta"
+    },
+    {
+      "arg": "emoji",
+      "subreddit": "emojipasta"
     }
   ],
   "misc": [
@@ -155,14 +155,6 @@
     {
       "arg": "ohno",
       "subreddit": "nononono"
-    },
-    {
-      "arg": "faggot",
-      "subreddit": "AnimeFaggotGifs"
-    },
-    {
-      "arg": "cursed",
-      "subreddit": "CursedGifs"
     }
   ],
   "image": [

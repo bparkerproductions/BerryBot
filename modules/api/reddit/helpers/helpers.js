@@ -14,6 +14,7 @@ module.exports = {
     "gif": "getGif",
     "url": "getLinkBody",
     "titlebody": "getTitleBody",
+    "body": "getBodyOnly",
     "linkbody": "getLinkBody",
     "music": "getLinkBody",
     "question": "getTitle"
@@ -36,11 +37,14 @@ module.exports = {
   },
 
   chooseFetchType(arguments, recieved, subreddit, type) {
-    if(arguments[1] == undefined) {
-      this.getTop(arguments, recieved, subreddit, type);
+    if(arguments[1] !== undefined) {
+      this.getResult(arguments, recieved, subreddit, type);
+    }
+    else if(type=='music') {
+      this.getHot(arguments, recieved, subreddit, type);
     }
     else {
-      this.getResult(arguments, recieved, subreddit, type);
+      this.getTop(arguments, recieved, subreddit, type);
     }
   },
 
@@ -54,6 +58,17 @@ module.exports = {
   getTop(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
     .getTop({
+      limit: this.postLimit,
+      time: this.selectTime()
+    })
+    .then( posts => {
+      this.mapPostGetter(type, posts, recieved);
+    });
+  },
+
+  getHot(arguments, recieved, subreddit, type) {
+    reddit.getSubreddit(subreddit)
+    .getHot({
       limit: this.postLimit,
       time: this.selectTime()
     })
@@ -140,6 +155,10 @@ module.exports = {
 
   getTitleBody(post, recieved) {
     recieved.channel.send(`**${post.title}**\n\n${post.selftext}`);
+  },
+
+  getBodyOnly(post, recieved) {
+    recieved.channel.send(`${post.selftext}`);
   },
 
   getLinkBody(post, recieved) {
