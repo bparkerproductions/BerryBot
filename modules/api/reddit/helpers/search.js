@@ -5,7 +5,7 @@ module.exports = {
     return reddit.search({
       query: command,
       subreddit: subreddit,
-      sort: 'top',
+      sort: 'relevance',
       syntax: 'lucene'
     });
   },

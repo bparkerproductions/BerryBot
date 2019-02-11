@@ -203,6 +203,10 @@
     {
       "arg": "random",
       "subreddit": "Videos"
+    },
+    {
+      "arg": "asmr",
+      "subreddit": "asmr"
     }
   ]
 }

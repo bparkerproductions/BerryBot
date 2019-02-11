@@ -13,6 +13,7 @@ module.exports = {
     "image": "getImage",
     "gif": "getGif",
     "url": "getLinkBody",
+    "video": "getLinkBody",
     "titlebody": "getTitleBody",
     "body": "getBodyOnly",
     "linkbody": "getLinkBody",
@@ -69,8 +70,7 @@ module.exports = {
   getHot(arguments, recieved, subreddit, type) {
     reddit.getSubreddit(subreddit)
     .getHot({
-      limit: this.postLimit,
-      time: this.selectTime()
+      limit: this.postLimit
     })
     .then( posts => {
       this.mapPostGetter(type, posts, recieved);

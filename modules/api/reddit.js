@@ -43,5 +43,8 @@ module.exports = {
     else if(command == "ask") {
       answer.ask(arguments, message);
     }
+    else if(command == "chat") {
+      answer.chat(arguments, message);
+    }
   }
 }

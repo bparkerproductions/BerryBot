@@ -5,17 +5,32 @@ const search = require("./helpers/search");
 
 module.exports = {
   ask(arguments, recieved) {
+    this.getCommentPost(arguments, recieved, "AskReddit");
+  },
+
+  chat(arguments, recieved) {
+    this.getCommentPost(arguments, recieved, 'CasualConversation');
+  },
+
+  getCommentPost(arguments, recieved, subreddit) {
     let query = helpers.getSentence(arguments, 0);
-    let result = search.media(query, 'AskReddit');
-    
+    let result = search.media(query, subreddit);
+
     result.then( res => {
       let post = rhelpers.grabPost(res);
+
+      if(post == undefined) {
+        recieved.channel.send("I dunno");
+        return;
+      }
       
       if(post.num_comments) {
         this.getComment(post.id, recieved);
       }
       else {
+        //no comments, try another post
         console.log("no comments");
+        this.getCommentPost(arguments, recieved, subreddit);
       }
     });
   },
@@ -26,13 +41,13 @@ module.exports = {
     .then( results => {
       let comment = rhelpers.grabPost(results); //grabs random comment
 
-      let parentID = comment.parent_id;
+      if(comment.body == "[removed]" || comment.body == "[deleted]") {
+        //not a good response, call again
+        console.log("Comment was removed... trying again");
+        this.getComment(postID, recieved);
+        return;
+      }
 
-      reddit.getComment(parentID).fetch().then(comment => {
-        console.log(comment.body);
-      });
-
-      //send off body
       recieved.channel.send(comment.body);
     })
   }
