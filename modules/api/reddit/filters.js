@@ -1,9 +1,6 @@
 const filt = require("./data/filter.json");
 
 module.exports = {
-  gifExclusion: filt.gifExclusion,
-  filterMap: filt.filterMap,
-  imgExclusion: filt.imgExclusion,
 
   /* URL filters */
   musicFilter(url) {
@@ -17,18 +14,16 @@ module.exports = {
   },
 
   imgFilter(url) {
-    return this.cycleFilter(this.imgExclusion, url);
+    return this.cycleFilter(filt.imgExclusion, url);
   },
 
   gifFilter(url) {
-    return this.cycleFilter(this.gifExclusion, url);
+    return this.cycleFilter(filt.gifExclusion, url);
   },
 
   commentFilter(comment) {
-    return comment == "[removed]" || 
-    comment == "[deleted]" || 
-    comment.includes("[Serious]") ||
-    comment.includes("reddit");
+    console.log(this.cycleFilter(filt.commentExclusion, comment));
+    return this.cycleFilter(filt.commentExclusion, comment);
   },
 
   isGif(media) {
@@ -73,7 +68,7 @@ module.exports = {
   },
 
   selectFilter(filter, post) {
-    let filterObj = this.filterMap[filter];
+    let filterObj = filt.filterMap[filter];
 
     if(filterObj !== undefined) {
       let media = post[filterObj.mediaType];

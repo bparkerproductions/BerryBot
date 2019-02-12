@@ -4,7 +4,14 @@
     "streamable", "reddit", "redd.it", "youtu.be", "webm"
   ],
 
-  "imgExclusion": ["gif", "webm", "reddit", "mov", "mp4"],
+  "imgExclusion": [
+    "gif", "webm", "reddit", "mov", "mp4"
+  ],
+
+  "commentExclusion": [
+    "[removed]", "[deleted]", "[Serious]",
+    "reddit", "/r/"
+  ],
 
   "filterMap": {
     "music": {

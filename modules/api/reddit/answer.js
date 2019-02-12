@@ -37,9 +37,12 @@ module.exports = {
   },
 
   sanatizeComment(comment) {
-    comment.split("").filter( word => {
+    let stripped = comment.trim().replace(/\s\s+/g, ' ');
+
+    return stripped.split(" ").filter( word => {
       console.log(word);
-    });
+      return !word.includes("&#");
+    }).join(" ");
   },
 
   getComment(postID, recieved) {
@@ -50,16 +53,16 @@ module.exports = {
       let commentFilt = filters.commentFilter(comment.body);
       let commentLen = comment.body.length > 300;
 
-      console.log(this.sanatizeComment(comment.body));
-
-      if(commentFilt || commentLen) {
+      if(!commentFilt || commentLen) {
         //not a good response, call again
         console.log("Comment was removed... trying again");
         this.getComment(postID, recieved);
         return;
       }
 
-      recieved.channel.send(comment.body);
+      //santize then send
+      let response = this.sanatizeComment(comment.body);
+      recieved.channel.send(response);
     })
   }
 }
