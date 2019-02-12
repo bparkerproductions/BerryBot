@@ -24,6 +24,13 @@ module.exports = {
     return this.cycleFilter(this.gifExclusion, url);
   },
 
+  commentFilter(comment) {
+    return comment == "[removed]" || 
+    comment == "[deleted]" || 
+    comment.includes("[Serious]") ||
+    comment.includes("reddit");
+  },
+
   isGif(media) {
     return media.includes("gif") || media.includes("gyfcat");
   },

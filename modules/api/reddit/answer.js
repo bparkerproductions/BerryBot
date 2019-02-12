@@ -2,6 +2,7 @@ const reddit = require('./../../../reddit.js');
 const helpers = require("./../../helpers/helpers");
 const rhelpers = require("./helpers/helpers");
 const search = require("./helpers/search");
+const filters = require("./filters");
 
 module.exports = {
   ask(arguments, recieved) {
@@ -35,13 +36,23 @@ module.exports = {
     });
   },
 
+  sanatizeComment(comment) {
+    comment.split("").filter( word => {
+      console.log(word);
+    });
+  },
+
   getComment(postID, recieved) {
     reddit.getSubmission(postID)
     .comments
     .then( results => {
       let comment = rhelpers.grabPost(results); //grabs random comment
+      let commentFilt = filters.commentFilter(comment.body);
+      let commentLen = comment.body.length > 300;
 
-      if(comment.body == "[removed]" || comment.body == "[deleted]") {
+      console.log(this.sanatizeComment(comment.body));
+
+      if(commentFilt || commentLen) {
         //not a good response, call again
         console.log("Comment was removed... trying again");
         this.getComment(postID, recieved);
