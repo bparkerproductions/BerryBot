@@ -22,15 +22,16 @@ client.on('ready', () => {
   //let botChannel = client.channels.get(channels['bot-test']);
 });
 
-client.on('message', (receivedMessage) => {
-    if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
-      return
+client.on('message', receivedMessage => {
+    // Prevent bot from responding to its own messages
+    if (receivedMessage.author == client.user) {
+      return;
     }
 
-    //Automod.init(receivedMessage);
+    Automod.init(receivedMessage);
     
     if (receivedMessage.content.startsWith(config.prefix)) {
-      processCommand(receivedMessage)
+      processCommand(receivedMessage);
     }
 })
 

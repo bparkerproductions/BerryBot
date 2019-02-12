@@ -22,7 +22,6 @@ module.exports = {
   },
 
   commentFilter(comment) {
-    console.log(this.cycleFilter(filt.commentExclusion, comment));
     return this.cycleFilter(filt.commentExclusion, comment);
   },
 
