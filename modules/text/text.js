@@ -1,38 +1,35 @@
 //MODULE for doing basic text manipulations
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const config = require('./../../data/config.json');
 const Helpers = require('./../helpers/helpers.js');
+const chain = require("./chain.js");
 
 module.exports = {
   init(command, message, arguments) {
-    switch(command) {
-      case "yell":
-        this.yell(arguments, message);
-        break;
-
-      case "whisper":
-        this.whisper(arguments, message);
-        break;
-
-      case "chain":
-        this.chain(arguments, message);
-        break;
+    if(command == "yell") {
+      this.yell(arguments, message);
+    }
+    else if(command == "whisper") {
+      this.whisper(arguments, message);
+    }
+    else if(command == "chain") {
+      chain.activate(arguments, message);
+    }
+    else if(command == "spell") {
+      this.spell(arguments, message);
     }
   },
 
-  yell(arguments, receivedMessage) {
+  yell(arguments, received) {
     let message = arguments.join(" ");
 
     if(arguments == "") {
-      receivedMessage.channel.send(`**HWAT?!**`);
+      received.channel.send(`**HWAT?!**`);
     }
     else {
-      receivedMessage.channel.send(`**${message.toUpperCase()}!!**`);
+      received.channel.send(`**${message.toUpperCase()}!!**`);
     }
   },
 
-  whisper(arguments, receivedMessage) {
+  whisper(arguments, received) {
     let message = arguments.join(" ");
     console.log(arguments);
     if(arguments == "") {
@@ -40,29 +37,11 @@ module.exports = {
     }
     else {
       let messageText = `*${message.toLowerCase()}* ( ͡° ͜ʖ ͡°)`;
-      receivedMessage.channel.send(messageText);
+      received.channel.send(messageText);
     }
   },
 
-  chain(arguments, receivedMessage) {
-    let amount = arguments[0]; //amount to repeat
-    let message = Helpers.getSentence(arguments); // convert rest of args into a sentence
-    let chainLimit = config.chain.limit;
+  spell(arguments, received) {
 
-    if(receivedMessage.channel.name !== "❥bot-test") {
-      receivedMessage.channel.send(`The chain command is not allowed in this channel`);
-      return;
-    }
-
-    if(amount > chainLimit ) {
-      receivedMessage.channel.send(`chaining is limited to ${chainLimit} uses for this channel`);
-      return;
-    }
-
-    for(let i=0; i<amount; i++) {
-      setTimeout(() => {
-        receivedMessage.channel.send(message);
-      }, 500);
-    }
-  },
+  }
 }
