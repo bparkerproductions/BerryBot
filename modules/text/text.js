@@ -1,6 +1,7 @@
 //MODULE for doing basic text manipulations
 const Helpers = require('./../helpers/helpers.js');
 const chain = require("./chain.js");
+const generator = require("./generator.js");
 
 module.exports = {
   init(command, message, arguments) {
@@ -14,10 +15,12 @@ module.exports = {
       chain.activate(arguments, message);
     }
     else if(command == "spell") {
-      this.spell(arguments, message);
+      generator.spell(arguments, message);
+    }
+    else if(command == "expand") {
+      generator.expand(arguments, message);
     }
   },
-
   yell(arguments, received) {
     let message = arguments.join(" ");
 
@@ -28,20 +31,12 @@ module.exports = {
       received.channel.send(`**${message.toUpperCase()}!!**`);
     }
   },
-
   whisper(arguments, received) {
     let message = arguments.join(" ");
-    console.log(arguments);
-    if(arguments == "") {
-      //
-    }
-    else {
+
+    if(message !== "") {
       let messageText = `*${message.toLowerCase()}* ( ͡° ͜ʖ ͡°)`;
       received.channel.send(messageText);
     }
   },
-
-  spell(arguments, received) {
-
-  }
 }
