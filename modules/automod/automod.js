@@ -1,4 +1,5 @@
 const Config = require('./../../data/config.json');
+const Counting = require('./counting.js');
 
 module.exports = {
   //production ready channels
@@ -20,6 +21,10 @@ module.exports = {
 
     if(prodReady || testChannels) {
       this.filterLetters(message);
+    }
+
+    if(channel.includes("counting")) {
+      Counting.countingMod(message);
     }
   },
 

@@ -16,5 +16,5 @@ module.exports = {
 
   truncate(str, wordAmount) {
     return str.split(" ").splice(0, wordAmount).join(" ");
-  }
+  },
 }
