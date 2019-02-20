@@ -1,41 +1,23 @@
 const Config = require('./../../data/config.json');
 const Counting = require('./counting.js');
+const Perms = require('./../helpers/perms.js');
 
 module.exports = {
-  //production ready channels
-  prod: [
-    "main", "general", "vent", "music", "counting", 
-    "media", "art", "voice", "animals", "gaming",
-    "selfies"],
-
-  //test channels only
-  staging: ["berry-bot"],
-
   init(message) {
     let channel = message.channel.name;
     console.log(`message recieved in ${channel}`);
 
     //define channel groups
-    let prodReady = this.checkChannels(this.prod, channel);
-    let testChannels = this.checkChannels(this.staging, channel);
+    let prodReady = Perms.getProdChannels(channel);
+    let testChannels = Perms.getTestChannels(channel);
 
-    if(prodReady || testChannels) {
+    if(testChannels || prodReady) {
       this.filterLetters(message);
     }
 
     if(channel.includes("counting")) {
       Counting.countingMod(message);
     }
-  },
-
-  checkChannels(arr, channel) {
-    for(let l=0; l<arr.length; l++) {
-      if(channel.includes(arr[l])) {
-        return true; //we want the automod to be applied
-      }
-    }
-
-    return false; //no matches, don't run
   },
 
   filterLetters(message) {

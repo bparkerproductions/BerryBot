@@ -13,7 +13,8 @@ const BotConfig = require('./modules/config/config.js');
 const User = require('./modules/user/user.js');
 const Help = require('./modules/help/help.js');
 const Moderation = require('./modules/moderation/moderation.js');
-const Trigger = require("./modules/trigger/trigger.js");
+const Trigger = require('./modules/trigger/trigger.js');
+const Utility = require('./modules/utility/utility.js');
 
 //set global root path
 global.__base = __dirname;
@@ -60,6 +61,7 @@ function mapCommands(command, message, arguments) {
   BotConfig.init(command, message, arguments);
   Help.init(command, message, arguments);
   Moderation.init(command, message, arguments);
+  Utility.init(command, message, arguments);
   // Trigger.init(command, message, arguments);
 }
 
