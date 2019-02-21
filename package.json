@@ -6,18 +6,17 @@
   "author": "sudo -i",
   "dependencies": {
     "axios": "^0.18.0",
-    "cleverbot-node": "^0.3.11",
     "discord-embed-maker": "^3.0.8",
-    "discord.io": "^2.5.3",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
-    "nodemon": "^1.18.8",
     "snoowrap": "^1.15.2",
-    "sqlite3": "^4.0.6",
     "winston": "^3.1.0"
   },
   "scripts": {
     "start": "NODE_PATH=. sudo nodemon bot.js",
     "deploy-start": "npm install & node bot.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }

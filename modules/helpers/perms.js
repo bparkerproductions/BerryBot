@@ -11,11 +11,11 @@ module.exports = {
   staging: ["berry-bot"],
 
   isStaff(message) {
-    let isMod = message.member.roles.find("name", "Mod");
+    //let isMod = message.member.roles.find("name", "Mod");
     let isOwner = message.member.roles.find("name", "Server Loli");
     let isAdmin = message.member.roles.find("name", "Admin");
 
-    if(isMod || isOwner || isAdmin) {
+    if(isOwner || isAdmin) {
       return true;
     }
     else {
