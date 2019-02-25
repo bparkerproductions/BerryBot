@@ -7,7 +7,7 @@ module.exports = {
     let finalOutput = this.generateRegional(words);
 
     if(finalOutput.length > 2000) {
-      received.channel.send(finalOutput.substring(0,2000));
+      received.channel.send(finalOutput.substring(1,2000));
     }
     else {
       received.channel.send(finalOutput);
@@ -37,7 +37,7 @@ module.exports = {
     finalOutput+=`${text} `.repeat(amount);
     
     if(finalOutput.length > 2000 ) {
-      received.channel.send(finalOutput.substring(0,2000));
+      received.channel.send(finalOutput.substring(1,2000));
     }
     else {
       received.channel.send(finalOutput);
