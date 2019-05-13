@@ -25,7 +25,7 @@ module.exports = {
 
     //this regex selects if a certain character is repeated
     //a certain amount of times
-    let regex = new RegExp(`(.)\\1{${limit},}`, "g");
+    let regex = new RegExp(`(.)\\1{${limit},}`, 'g');
     if(message.content.match(regex)) {
       console.log('Multiple character spam detected..deleting');
       message.delete(50);

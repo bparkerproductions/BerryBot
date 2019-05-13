@@ -1,7 +1,7 @@
 module.exports = {
   getSentence(args, splitArg=1) {
     //take multiple args, and convert them into a single sentence
-    return args.slice(splitArg, args.length).join(" ");
+    return args.slice(splitArg, args.length).join(' ');
   },
 
   validateDigits(message) {
@@ -15,6 +15,6 @@ module.exports = {
   },
 
   truncate(str, wordAmount) {
-    return str.split(" ").splice(0, wordAmount).join(" ");
+    return str.split(' ').splice(0, wordAmount).join(' ');
   },
 }

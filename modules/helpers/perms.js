@@ -3,23 +3,21 @@
 module.exports = {
   //production ready channels
   prod: [
-    "main", "general", "vent", "music", "counting", 
-    "media", "art", "voice", "animals", "gaming",
-    "selfies"],
+    'main', 'general', 'vent', 'music', 'counting',
+    'media', 'art', 'voice', 'animals', 'gaming',
+    'selfies'],
 
   //test channels only
-  staging: ["berry-bot"],
+  staging: ['berry-bot', 'developer'],
 
   isStaff(message) {
-    //let isMod = message.member.roles.find("name", "Mod");
-    let isOwner = message.member.roles.find("name", "Server Loli");
-    let isAdmin = message.member.roles.find("name", "Admin");
+    //let isMod = message.member.roles.find('name', 'Mod');
+    let isOwner = message.member.roles.find('name', 'Owner');
+    let isAdmin = message.member.roles.find('name', 'Admin');
 
-    if(isOwner || isAdmin) {
-      return true;
-    }
+    if(isOwner || isAdmin) return true;
     else {
-      let errMsg = "You must have staff privileges to use this command";
+      let errMsg = 'You must have staff privileges to use this command';
       message.channel.send(errMsg).then( msg => {
         msg.delete(2000);
       });
@@ -34,9 +32,8 @@ module.exports = {
   },
   checkChannels(arr, channel) {
     for(let l=0; l<arr.length; l++) {
-      if(channel.includes(arr[l])) {
-        return true; //we want the automod to be applied
-      }
+      //we want the automod to be applied
+      if(channel.includes(arr[l])) return true;
     }
 
     return false; //no matches, don't run

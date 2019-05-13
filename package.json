@@ -13,7 +13,7 @@
     "winston": "^3.1.0"
   },
   "scripts": {
-    "start": "NODE_PATH=. sudo nodemon bot.js",
+    "start": "NODE_PATH=. nodemon bot.js",
     "deploy-start": "npm install & node bot.js"
   },
   "devDependencies": {

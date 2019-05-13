@@ -4,10 +4,10 @@ const reddits = require('./../../data/redditsMap.json');
 
 module.exports = {
   init(command, message, arguments) {
-    if(command == "help" || command == "h") {
+    if(command == 'help' || command == 'h') {
       this.help(arguments, message);
     }
-    else if(command == "rhelp" || command == "rh") {
+    else if(command == 'rhelp' || command == 'rh') {
       this.redditHelp(arguments, message);
     }
   },
@@ -16,7 +16,7 @@ module.exports = {
     let command = arguments[0]; //the command they need help with
 
     //list all commands on base command
-    if(command === "" || command == undefined) {
+    if(command === '' || command == undefined) {
       this.listCommands(arguments, received);
     }
 
@@ -29,7 +29,7 @@ module.exports = {
 
   promptUser(elem, command, received) {
     if(elem.name == command) {
-      let textPrompt = "";
+      let textPrompt = '';
       textPrompt+=`To use ${elem.name} type: \`b!${elem.command}\``;
 
       //if there is a list of commands, append them
@@ -48,7 +48,7 @@ module.exports = {
   },
 
   listCommands(arguments, received) {
-    let helpStr = "Use `b!help <arg>` for more details\n\n";
+    let helpStr = 'Use `b!help <arg>` for more details\n\n';
 
     let list = helpText.help.forEach( elem => {
       helpStr +=  `**${elem.name}** - ${elem.description}\n\n`;
@@ -60,8 +60,9 @@ module.exports = {
   listHelp(obj, name) {
     let textPrompt = `Use \`b!${name} <arg>\`\n Args are: `;
 
-    obj.forEach( item => {
-      textPrompt+=`${item.arg}, `;
+    obj.forEach( (item, index) => {
+      let comma = index+1 == obj.length ? '' : ',';
+      textPrompt+=`${item.arg}${comma} `;
     });
 
     return textPrompt.trim();
@@ -72,7 +73,7 @@ module.exports = {
     let redditObj = reddits[helpCommand];
 
     //if no arg was passed, list all help and return
-    if(helpCommand == "all" || helpCommand == undefined) {
+    if(helpCommand == 'all' || helpCommand == undefined) {
       this.rhelpAll(arguments, recieved);
       return;
     }
@@ -88,7 +89,7 @@ module.exports = {
   },
 
   rhelpAll(arguments, recieved) {
-    let textPrompt = "**Listing all rhelp commands:** \n\n";
+    let textPrompt = '**Listing all rhelp commands:** \n\n';
 
     Object.entries(reddits).forEach( item => {
       let name = item[0], items = item[1];
