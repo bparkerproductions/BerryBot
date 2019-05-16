@@ -21,19 +21,19 @@ module.exports = {
       let userBy = [];
 
       messages.forEach( elem => {
-        let content = parseInt(elem.content.replace(" ",""));
+        let content = parseInt(elem.content.replace(' ',''));
         let matched = this.checkMatch(recentNum, content);
 
         userBy.push(elem.author.username); //push recent users
 
         if(matched !== undefined) {
-          matched ? "" : this.deleteRecent(messages, message);
+          matched ? '' : this.deleteRecent(messages, message);
         }
 
         recentNum = content;
       });
 
-      //enforce 3 consecutive rule
+      //enforce 2 consecutive rule
       if(userBy.every( (val, i, arr) => val === arr[0] )) {
         this.deleteRecent(messages, message);
       }

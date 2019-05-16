@@ -5,7 +5,7 @@ const Perms = require('./../helpers/perms.js');
 module.exports = {
   init(message) {
     let channel = message.channel.name;
-    console.log(`message recieved in ${channel}`);
+    this.log(channel);
 
     //define channel groups
     let prodReady = Perms.getProdChannels(channel);
@@ -15,7 +15,7 @@ module.exports = {
       this.filterLetters(message);
     }
 
-    if(channel.includes("counting")) {
+    if(channel.includes('counting')) {
       Counting.countingMod(message);
     }
   },
@@ -30,5 +30,9 @@ module.exports = {
       console.log('Multiple character spam detected..deleting');
       message.delete(50);
     }
+  },
+
+  log(channelName) {
+    console.log(`message recieved in ${channelName}`);
   }
 }

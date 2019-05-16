@@ -1,19 +1,9 @@
 {
   "help": [
     {
-      "name": "chain",
-      "command": "chain <amount> <message>",
-      "description": "Chain x amount of messages together"
-    },
-    {
-      "name": "whisper",
-      "command": "whisper <message>",
-      "description": "Whisper a sincere message"
-    },
-    {
-      "name": "yell",
-      "command": "yell <message>",
-      "description": "Yell at a user or make the bot yell"
+      "name": "ask",
+      "command": "ask <question>",
+      "description": "Ask the bot a question."
     },
     {
       "name": "rhelp",

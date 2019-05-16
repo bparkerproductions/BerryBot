@@ -15,14 +15,6 @@
     {
       "arg": "insightful",
       "subreddit": "InsightfulQuestions"
-    },
-    {
-      "arg": "men",
-      "subreddit": "AskMen"
-    },
-    {
-      "arg": "women",
-      "subreddit": "AskWomen"
     }
   ],
   "idea": [
@@ -69,10 +61,6 @@
       "subreddit": "Jokes"
     },
     {
-      "arg": "dark",
-      "subreddit": "DarkJokes"
-    },
-    {
       "arg": "dad",
       "subreddit": "DadJokes"
     },
@@ -87,10 +75,6 @@
     {
       "arg": "anti",
       "subreddit": "AntiJokes"
-    },
-    {
-      "arg": "3am",
-      "subreddit": "3amjokes"
     }
   ],
   "music": [
@@ -137,27 +121,11 @@
       "subreddit": "WholesomeGifs"
     },
     {
-      "arg": "recipe",
-      "subreddit": "GifRecipes"
-    },
-    {
-      "arg": "satisfying",
-      "subreddit": "OddlySatisfying"
-    },
-    {
-      "arg": "reaction",
-      "subreddit": "ReactionGifs"
-    },
-    {
       "arg": "ohno",
       "subreddit": "nononono"
     }
   ],
   "image": [
-    {
-      "arg": "cemetery",
-      "subreddit": "ComedyCemetery"
-    },
     {
       "arg": "cursed",
       "subreddit": "CursedImages"
@@ -169,10 +137,6 @@
     {
       "arg": "hmm",
       "subreddit": "hmmm"
-    },
-    {
-      "arg": "wtf",
-      "subreddit": "wtf"
     },
     {
       "arg": "okbuddy",
