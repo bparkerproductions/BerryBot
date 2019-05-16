@@ -11,6 +11,14 @@
       "description": "Get more help commands for the reddit modules"
     },
     {
+      "name": "rules",
+      "command": "rules <arg>",
+      "commands": {
+        "list": ["options", "list"]
+      },
+      "description": "list server rules by tag or index"
+    },
+    {
       "name": "actions",
       "command": "! <action> <user>",
       "commands": {

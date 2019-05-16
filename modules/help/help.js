@@ -34,9 +34,10 @@ module.exports = {
 
       //if there is a list of commands, append them
       if(elem.commands) {
-        let commandsText = `\n\nAvailable ${elem.verb} are:\n`;
-        elem.commands.list.forEach( command => {
-          commandsText+=`${command}, `;
+        let commandsText = `\n\nAvailable arguments are:\n`;
+        elem.commands.list.forEach( (command, index) => {
+          let comma = index+1 == command.length ? '' : ',';
+          commandsText+=`${command}${comma} `;
         });
 
         textPrompt+=commandsText;
