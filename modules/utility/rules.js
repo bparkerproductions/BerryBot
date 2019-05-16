@@ -2,14 +2,18 @@ const rules = require('./../../data/rules.json');
 
 module.exports = {
   init(command, message, arguments) {
-    if(command == 'rules' || command == 'r') {
-      if(arguments[0] == 'generate') this.generate(message);
+    if(command == 'rules' || command == 'rule') {
+      if(arguments[0] == 'list') this.listAll(message);
       else if(arguments[0] == 'options') this.listOptions(message);
       else this.showRule(message, arguments);
     }
   },
-  generate(message) {
-    message.channel.send('generate');
+  listAll(message) {
+    let listAll = rules.map(rule => {
+      return this.format(rule);
+    }).join('');
+
+    message.channel.send(listAll);
   },
   searchRule(term) {
     for(let i=0; i<rules.length; i++) {
@@ -37,10 +41,7 @@ module.exports = {
     }
   },
   format(rule) {
-    return `
-      *${rule.rule}*\n**${rule.title}**
-      \`\`\`${rule.description}\`\`\`
-    `;
+    return `**${rule.title}**\`\`\`${rule.description}\`\`\`\n`;
   },
   listOptions(message) {
     let tags = rules.map(e => e.rule ).join(', ');
