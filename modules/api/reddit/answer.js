@@ -1,15 +1,15 @@
 const reddit = require('./../../../reddit.js');
-const helpers = require("./../../helpers/helpers");
-const rhelpers = require("./helpers/helpers");
-const search = require("./helpers/search");
-const filters = require("./filters");
+const helpers = require('./../../helpers/helpers');
+const rhelpers = require('./helpers/helpers');
+const search = require('./helpers/search');
+const filters = require('./filters');
 
 module.exports = {
   filterLimit: 10,
   currentTries: 0,
 
   ask(arguments, recieved) {
-    this.getCommentPost(arguments, recieved, "AskReddit");
+    this.getCommentPost(arguments, recieved, 'AskReddit');
   },
 
   chat(arguments, recieved) {
@@ -25,16 +25,16 @@ module.exports = {
       let post = rhelpers.grabPost(res);
 
       if(post == undefined) {
-        recieved.channel.send("I dunno");
+        recieved.channel.send('Not sure..');
         return;
       }
-      
+
       if(post.num_comments) {
         this.getComment(post.id, recieved, arguments, subreddit);
       }
       else {
         //no comments, try another post
-        console.log("no comments");
+        console.log('no comments');
         this.getCommentPost(arguments, recieved, subreddit);
       }
     });
@@ -43,35 +43,35 @@ module.exports = {
   sanatizeComment(comment) {
     let stripped = comment.trim().replace(/\s\s+/g, ' ');
 
-    return stripped.split(" ").filter( word => {
-      return !word.includes("&#");
-    }).join(" ");
+    return stripped.split(' ').filter( word => {
+      return !word.includes('&#');
+    }).join(' ');
   },
 
   getComment(postID, recieved, arguments, subreddit) {
     reddit.getSubmission(postID)
-    .comments
-    .then( results => {
-      let comment = rhelpers.grabPost(results); //grabs random comment
-      let commentFilt = filters.commentFilter(comment.body);
-      let commentLen = comment.body.length > 200 && comment.body.length < 10;
+      .comments
+      .then( results => {
+        let comment = rhelpers.grabPost(results); //grabs random comment
+        let commentFilt = filters.commentFilter(comment.body);
+        let commentLen = comment.body.length > 200 && comment.body.length < 10;
 
-      if(this.currentTries > this.filters) {
-        console.log('comment filterings not passed... trying different post');
-        this.getCommentPost(arguments, recieved, subreddit);
-      }
+        if(this.currentTries > this.filters) {
+          console.log('comment filterings not passed... trying different post');
+          this.getCommentPost(arguments, recieved, subreddit);
+        }
 
-      if(!commentFilt || commentLen) {
-        //not a good response, call again
-        this.currentTries++;
-        console.log("Comment was removed... trying again");
-        this.getComment(postID, recieved);
-        return;
-      }
+        if(!commentFilt || commentLen) {
+          //not a good response, call again
+          this.currentTries++;
+          console.log('Comment was removed... trying again');
+          this.getComment(postID, recieved);
+          return;
+        }
 
-      //santize then send
-      let response = this.sanatizeComment(comment.body);
-      recieved.channel.send(response);
-    })
+        //santize then send
+        let response = this.sanatizeComment(comment.body);
+        recieved.channel.send(response);
+      })
   }
 }
