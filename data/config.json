@@ -1,6 +1,6 @@
 {
   "prefix": "b!",
-  "channelName": "Berry Berry Club",
+  "channelName": "The Cosmos",
   "chain": {
     "limit": 5
   },
@@ -8,6 +8,6 @@
     "charlimit": "10"
   },
   "triggers": {
-    
+
   }
 }

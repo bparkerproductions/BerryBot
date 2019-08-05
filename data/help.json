@@ -17,15 +17,6 @@
         "list": ["options", "list"]
       },
       "description": "list server rules by tag or index"
-    },
-    {
-      "name": "actions",
-      "command": "! <action> <user>",
-      "commands": {
-        "list": ["hug", "kiss", "cuddle", "pat", "lick"],
-        "verb": "actions"
-      },
-      "description": "Perform an action on a user!"
     }
   ]
 }

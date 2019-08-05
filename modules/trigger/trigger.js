@@ -1,10 +1,10 @@
-let helpers = require("./../helpers/helpers.js");
-let music = require("./music.js");
-let timers = require("./intervals.js");
+let helpers = require('./../helpers/helpers.js');
+let music = require('./music.js');
+let timers = require('./intervals.js');
 
 module.exports = {
   init(command, message, arguments) {
-    if(command == "trigger" || command == "trig") {
+    if(command == 'trigger' || command == 'trig') {
       this.activateTrigger(arguments, message);
     }
   },
@@ -16,10 +16,10 @@ module.exports = {
     let type = arguments[0];
     let interval = this.getInterval(arguments[1], recieved);
 
-    if(type == "music") {
+    if(type == 'music') {
       this.musicTrigger(interval, recieved);
     }
-    if(type == "-m") {
+    if(type == '-m') {
       this.messageTrigger(interval, recieved, arguments);
     }
   },
@@ -52,20 +52,14 @@ module.exports = {
       return helpers.getSentence(arguments, 2)
     };
 
-    if( channel == "❥berry-bot" || 
-      channel == "♡epic-chat") {
-      this.intervalSet('message', sentMessage, recieved, interval);
-    }
-    else {
-      recieved.channel.send("The message trigger cannot be set in this channel");
-    }
+    this.intervalSet('message', sentMessage, recieved, interval);
   },
 
   musicTrigger(interval, recieved) {
     let sentMessage = () => {
       return `test. Current interval: ${interval}`;
     }
-    
+
     this.intervalSet('music', sentMessage, recieved, interval);
   }
 }

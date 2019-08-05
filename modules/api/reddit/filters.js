@@ -5,7 +5,7 @@ module.exports = {
   /* URL filters */
   musicFilter(url) {
     //we don't want self reddit posts to be returned for music
-    return url.includes('youtube.com') || 
+    return url.includes('youtube.com') ||
            url.includes('spotify.');
   },
 
@@ -31,8 +31,8 @@ module.exports = {
 
   /* Text filters */
   bodyFilter(text) {
-    return text.length < 2000 && 
-    text.length > 15 ? true : false && 
+    return text.length < 2000 &&
+    text.length > 15 ? true : false &&
     url.includes('reddit');
   },
 
@@ -40,12 +40,6 @@ module.exports = {
     //if the post doesn't include reddit and has a question mark
     let title = post.toLowerCase();
     return !title.includes('reddit') && title.includes('?');
-  },
-
-  /* Specific Module & Misc Filters */
-  animeFilter(url) {
-    return this.gifFilter(url) &&
-           !url.includes("akira.tits-are");
   },
 
   postGlobal(obj) {

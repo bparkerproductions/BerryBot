@@ -3,7 +3,6 @@ const reddits = require('./../../data/redditsMap.json');
 const reddit = require('./../../reddit');
 
 //modules
-const Anime = require('./reddit/anime');
 const answer = require('./reddit/answer');
 const Generator = require('./reddit/generator');
 const Gifs = require('./reddit/gif');
@@ -15,12 +14,12 @@ module.exports = {
     //init other modules
     Generator.init(command, message, arguments);
     Gifs.init(command, message, arguments);
-    Anime.init(command, message, arguments);
 
     let {
       idea, jokes, misc,
       music, image, video,
-      question, debate } = reddits;
+      question, debate
+    } = reddits;
 
     if(command == 'idea' || command == 'i') {
       rhelpers.mapTypeOfReddit(arguments, message, idea, 'title');

@@ -10,7 +10,6 @@ const Channel = require('./modules/data/channels.js');
 const API = require('./modules/api/api.js');
 const Automod = require('./modules/automod/automod.js');
 const BotConfig = require('./modules/config/config.js');
-const User = require('./modules/user/user.js');
 const Help = require('./modules/help/help.js');
 const Moderation = require('./modules/moderation/moderation.js');
 const Trigger = require('./modules/trigger/trigger.js');
@@ -30,7 +29,7 @@ client.on('message', receivedMessage => {
     }
 
     Automod.init(receivedMessage);
-    
+
     if (receivedMessage.content.startsWith(config.prefix)) {
       processCommand(receivedMessage);
     }
@@ -57,12 +56,11 @@ function mapCommands(command, message, arguments) {
   Text.init(command, message, arguments);
   API.init(command, message, arguments);
   Channel.init(command, message, arguments, client);
-  User.init(command, message, arguments, client);
   BotConfig.init(command, message, arguments);
   Help.init(command, message, arguments);
   Moderation.init(command, message, arguments);
   Utility.init(command, message, arguments);
-  // Trigger.init(command, message, arguments);
+  Trigger.init(command, message, arguments);
 }
 
 // Get your bot's secret token from:
