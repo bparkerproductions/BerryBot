@@ -1,0 +1,27 @@
+[
+  {
+    "rule": "spam",
+    "title": "No excessive spam in main-chat",
+    "description": "Spam includes: excessive caps and consecutive messages, gibberish that doesn't contribute to the current conversation, overuse of bots and images, and any other form of meaningless texts."
+  },
+  {
+    "rule": "nsfw",
+    "title": "Keep it SFW.",
+    "description": "Anything that wouldn't pass a PG-13 rating may be considered NSFW. Joking around about sexual topics is ok and even common here, but do not post NSFW media and go in depth on sexual topics."
+  },
+  {
+    "rule": "advertisement",
+    "title": "No advertising or promotion.",
+    "description": "This applies to ALL channels and any member's dms. I don't do partnerships unless it's for a good friend."
+  },
+  {
+    "rule": "bullying",
+    "title": "No bullying or harrasment",
+    "description": "Don't harrass, dox, excessivly insult, or intentionally bully a member. Playing around is ok, but know when/if you are taking it too far"
+  },
+  {
+    "rule": "self-harm",
+    "title": "No self harm, suicide, or over the top depression talk",
+    "description": "This server is generally a positive place and doesn't serve as a personal outlet(unless it's in vent)"
+  }
+]
