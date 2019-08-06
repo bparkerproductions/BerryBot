@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const secretToken = require('./auth.js').token;
-const channels = require('./data/channels');
 const config = require('./data/config.json');
 
 //Every bot module
@@ -14,6 +13,7 @@ const Help = require('./modules/help/help.js');
 const Moderation = require('./modules/moderation/moderation.js');
 const Trigger = require('./modules/trigger/trigger.js');
 const Utility = require('./modules/utility/utility.js');
+const UserJoin = require('./modules/user/join.js');
 
 //set global root path
 global.__base = __dirname;
@@ -22,11 +22,13 @@ client.on('ready', () => {
   //let botChannel = client.channels.get(channels['bot-test']);
 });
 
+client.on('guildMemberAdd', member => {
+  UserJoin.welcome(member);
+})
+
 client.on('message', receivedMessage => {
     // Prevent bot from responding to its own messages
-    if (receivedMessage.author == client.user) {
-      return;
-    }
+    if (receivedMessage.author == client.user) return;
 
     Automod.init(receivedMessage);
 
