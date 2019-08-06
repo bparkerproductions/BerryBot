@@ -1,1 +1,1 @@
-web: npm run deploy-start
+worker: node bot.js
