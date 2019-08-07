@@ -1,24 +1,24 @@
 const embed = require('discord-embed-maker');
 
 const Helpers = require('../../../helpers/helpers.js');
-const search = require("./search.js");
+const search = require('./search.js');
 const reddits = require('./../../../../data/redditsMap.json');
 const reddit = require('./../../../../reddit.js');
 const filters = require('./../filters.js');
 
 module.exports = {
   postMaps: {
-    "body": "getBody",
-    "title": "getTitle",
-    "image": "getImage",
-    "gif": "getGif",
-    "url": "getLinkBody",
-    "video": "getLinkBody",
-    "titlebody": "getTitleBody",
-    "body": "getBodyOnly",
-    "linkbody": "getLinkBody",
-    "music": "getLinkBody",
-    "question": "getTitle"
+    body: 'getBody',
+    title: 'getTitle',
+    image: 'getImage',
+    gif: 'getGif',
+    url: 'getLinkBody',
+    video: 'getLinkBody',
+    titlebody: 'getTitleBody',
+    body: 'getBodyOnly',
+    linkbody: 'getLinkBody',
+    music: 'getLinkBody',
+    question: 'getTitle'
   },
 
   postLimit: 200,
@@ -78,7 +78,7 @@ module.exports = {
   },
 
   getResult(arguments, recieved, subreddit, type) {
-    let query = Helpers.getSentence(arguments, 1).replace(/\"/g, "");
+    let query = Helpers.getSentence(arguments, 1).replace(/\'/g, '');
     let searchResult = search.media(arguments[1], subreddit);
 
     searchResult.then( result => {
@@ -109,7 +109,7 @@ module.exports = {
       func.call(this, post, recieved, type);
     }
     else {
-      console.log("Didn\'t pass filter.. trying again...");
+      console.log('Didn\'t pass filter.. trying again...');
       this.filterCount++;
 
       if(this.filterCount < this.filterLimit) {
@@ -134,7 +134,7 @@ module.exports = {
     //set up embed
     embed.setDescription(this.embedDesc(post));
     embed.setImage(post.url);
-    embed.setColor("#7aa6d3");
+    embed.setColor('#7aa6d3');
 
     //send embed to channel
     recieved.channel.send({embed: embed});
@@ -166,7 +166,7 @@ module.exports = {
   },
 
   embedDesc(post) {
-    let redditBase = "http://www.reddit.com";
+    let redditBase = 'http://www.reddit.com';
     let postLink = `${redditBase}${post.permalink}`;
     let link = `[See Original](${postLink})`;
     let subName = post.subreddit_name_prefixed;

@@ -4,62 +4,63 @@ let timers = require('./intervals.js');
 
 module.exports = {
   init(command, message, arguments) {
-    if(command == 'trigger' || command == 'trig') {
+    if(command === 'trigger' || command === 'interval') {
       this.activateTrigger(arguments, message);
     }
   },
 
-  default: 5000,
-  limit: 2000,
-
+  limit: 20,
+  getLimitInSeconds(interval) {
+    return interval * 1000;
+  },
   activateTrigger(arguments, recieved) {
     let type = arguments[0];
-    let interval = this.getInterval(arguments[1], recieved);
+    let intervalTime = parseInt(arguments[1]);
 
-    if(type == 'music') {
-      this.musicTrigger(interval, recieved);
-    }
-    if(type == '-m') {
-      this.messageTrigger(interval, recieved, arguments);
-    }
+    if(type === 'music') this.musicTrigger(intervalTime, recieved);
+    if(type === '-m') this.messageTrigger(intervalTime, recieved, arguments);
   },
-
-  getInterval(arg, recieved) {
-    //if arg is under limit, return default
-    if(arg < this.limit) {
-      recieved.channel.send(`Can't send a value that is less than ${this.limit} seconds. Using default`);
-      return this.default;
-    }
-    //if arg passed, return arg, else return default
-    return arg ? arg : this.default;
-  },
-
   intervalSet(obj, func, recieved, interval) {
     clearInterval(timers.intervals[obj]);
 
-    if(interval !== 'stop') {
-      timers.intervals[obj] = setInterval( () => {
-        console.log(`${obj} interval passed. Current timer: ${interval}`);
-        recieved.channel.send(func());
-      }, interval);
-    }
+    timers.intervals[obj] = setInterval( () => {
+      console.log(`${obj} interval passed. Current timer: ${interval} seconds`);
+      recieved.channel.send(func());
+    }, this.getLimitInSeconds(interval));
   },
-
   messageTrigger(interval, recieved, arguments) {
-    let message = arguments[2];
-    let channel = recieved.channel.name;
+    let message = arguments[1];
+    let isNumber = typeof parseInt(interval) === 'number';
+    let isMessage = message !== undefined && message.length;
     let sentMessage = () => {
       return helpers.getSentence(arguments, 2)
     };
 
-    this.intervalSet('message', sentMessage, recieved, interval);
+    //first check if the interval should be stopped
+    if(arguments[1] === 'stop' || interval === 'stop') {
+      clearInterval(timers.intervals['message']);
+      return;
+    }
+
+    if(isNumber && isMessage) {
+      if(parseInt(interval) >= this.limit) {
+        this.intervalSet('message', sentMessage, recieved, interval);
+      }
+      else {
+        recieved.channel.send(`The current lowest allowed value is ${this.limit} seconds, please use a higher value.`);
+        return;
+      }
+    }
+    else {
+      recieved.channel.send('Something is wrong with your command, please try again.');
+    }
   },
 
   musicTrigger(interval, recieved) {
-    let sentMessage = () => {
-      return `test. Current interval: ${interval}`;
-    }
+    // let sentMessage = () => {
+    //   return `test. Current interval: ${interval}`;
+    // }
 
-    this.intervalSet('music', sentMessage, recieved, interval);
+    // this.intervalSet('music', sentMessage, recieved, interval);
   }
 }
