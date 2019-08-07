@@ -5,18 +5,18 @@
   "main": "bot.js",
   "author": "sudo -i",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "discord-embed-maker": "^3.0.8",
-    "discord.js": "^11.4.2",
+    "discord.js": "^11.5.1",
     "dotenv": "^6.2.0",
-    "snoowrap": "^1.15.2",
-    "winston": "^3.1.0"
+    "snoowrap": "^1.19.0",
+    "winston": "^3.2.1"
   },
   "scripts": {
     "start": "NODE_PATH=. nodemon bot.js",
     "deploy-start": "node bot.js"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.19.1"
   }
 }
