@@ -1,11 +1,14 @@
 let helpers = require('./../helpers/helpers.js');
+let perms = require('./../helpers/perms.js');
 let music = require('./music.js');
 let timers = require('./intervals.js');
 
 module.exports = {
   init(command, message, arguments) {
-    if(command === 'trigger' || command === 'interval') {
-      this.activateTrigger(arguments, message);
+    if(perms.isStaff(message)) {
+      if(command === 'trigger' || command === 'interval') {
+        this.activateTrigger(arguments, message);
+      }
     }
   },
 
