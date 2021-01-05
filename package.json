@@ -5,7 +5,7 @@
   "main": "bot.js",
   "author": "sudo -i",
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "discord-embed-maker": "^3.0.8",
     "discord.js": "^11.5.1",
     "dotenv": "^6.2.0",
